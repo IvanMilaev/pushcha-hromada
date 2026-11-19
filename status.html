@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Стан і вода — Пуща-громада (прототип)</title>
+<meta name="description" content="Вода, світло, тепло, зв'язок у Пущі-Водиці: хто перевірив і коли, де взяти воду. Прототип із вигаданими даними.">
+<meta name="theme-color" content="#3B3735">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-page="home">
+<p class="concept-banner">Концепт для партнерів. Усі дані на сайті вигадані.</p>
+
+<main class="wrap">
+  <section aria-labelledby="h-now">
+    <p class="fit-title site-name"><a href="index.html"><span>Пуща-Водиця</span></a></p>
+    <h1 id="h-now" class="page-title">Стан і вода</h1>
+    <p class="notice" id="status-notice" role="status" hidden></p>
+    <ul class="tiles" id="tiles">
+      <li class="tile st-unknown"><span class="tile-name">Вода</span><span class="tile-state">завантаження…</span></li>
+      <li class="tile st-unknown"><span class="tile-name">Світло</span><span class="tile-state">завантаження…</span></li>
+      <li class="tile st-unknown"><span class="tile-name">Опалення</span><span class="tile-state">завантаження…</span></li>
+      <li class="tile st-unknown"><span class="tile-name">Зв’язок</span><span class="tile-state">завантаження…</span></li>
+    </ul>
+    <noscript><p class="notice">Щоб побачити стан, увімкніть JavaScript. Інші сторінки працюють і без нього.</p></noscript>
+    <p class="status-meta" id="status-meta"></p>
+    <p class="caption">«Не підтверджено» — ніхто не перевіряв це понад 6 годин. Не сприймайте це як факт.</p>
+    <button class="btn-small" id="copy-btn" type="button">Скопіювати як текст</button>
+    <p class="feedback" id="copy-feedback" aria-live="polite"></p>
+    <textarea class="copy-box" id="copy-box" readonly aria-label="Текст для копіювання" hidden></textarea>
+  </section>
+
+  <section aria-labelledby="h-water" class="paper">
+    <h2 id="h-water">Де взяти воду зараз</h2>
+    <ul class="list" id="water-list"></ul>
+    <p id="water-empty" hidden>Поки немає перевірених точок. <a href="emergencies.html#no-water">Що робити, якщо немає води</a></p>
+  </section>
+
+  <section aria-labelledby="h-event">
+    <h2 id="h-event">Що відбувається</h2>
+    <div id="event"><p class="muted">Завантаження…</p></div>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="meta-line page-foot"><span class="sample-banner">Тестові дані</span><button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button></div>
+  <p>Прототип: усе на сайті вигадане для прикладу. Доповнює місцеві чати в Telegram і Viber, а не замінює їх.</p>
+  <p>Без реклами, аналітики й трекерів.</p>
+</div></footer>
+
+<nav class="tabbar" aria-label="Розділи">
+  <a href="index.html" aria-current="true"><svg aria-hidden="true"><use href="assets/icons.svg#i-home"/></svg>Зараз</a>
+  <a href="news.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-news"/></svg>Новини</a>
+  <a href="events.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-calendar"/></svg>Події</a>
+  <a href="help.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>Допомога</a>
+  <a href="more.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-more"/></svg>Ще</a>
+</nav>
+</body>
+</html>

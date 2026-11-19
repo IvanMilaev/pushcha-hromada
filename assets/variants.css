@@ -1,0 +1,68 @@
+/* Design lab only: five ways to present the news (A–E). Built on style.css tokens.
+   Picture tones are fixed (a picture looks the same in both themes); in low-data mode a picture
+   becomes a field of its tone, so the layout and rhythm stay identical. */
+
+/* ---------- the switcher (sticky, one hairline under it) ---------- */
+.lab-bar {
+  position: sticky; top: 0; z-index: 5; max-width: var(--measure); margin: var(--snug) auto 0;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--tight) var(--snug);
+  padding: var(--tight) 0; background: var(--bg); border-bottom: 1px solid var(--rule);
+}
+.lab-switch { display: flex; flex-wrap: wrap; gap: var(--hair); }
+.lab-switch button, .lab-lite {
+  min-width: 44px; min-height: 44px; padding: 0 var(--snug); border-radius: var(--r-pill);
+  border: 1px solid var(--rule); background: transparent; color: var(--text); font: inherit; font-weight: 600; cursor: pointer;
+}
+.lab-switch button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+.lab-lite { font-weight: 400; font-size: var(--small); color: var(--muted); }
+.lab-lite[aria-pressed="true"] { color: var(--sun); border-color: var(--sun); }
+
+/* ---------- pictures: .pic, .ph and the .t-* tones live in style.css ---------- */
+.vb-lead, .vc-tile, .ve-card, .va-text { grid-template-columns: minmax(0, 1fr); min-width: 0; }
+#variant a { color: var(--text); text-decoration: none; }
+
+/* A — list with a thumbnail on the right */
+.va-row { display: grid; grid-template-columns: minmax(0, 1fr) 72px; gap: var(--snug); align-items: center; min-height: 72px; }
+.va-text { display: grid; gap: 6px; }
+.va-pic { width: 72px; height: 72px; aspect-ratio: 1; }
+
+/* B — one lead story, then a quiet list */
+.vb-lead { display: grid; gap: var(--tight); }
+.vb-pic { aspect-ratio: 16 / 10; border-radius: var(--r-m); margin-bottom: var(--tight); }
+.vb-title { font-size: 1.5rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; }
+.vb-ex { color: var(--muted); }
+.vb-rest { margin-top: var(--wide); }
+
+/* C — two-column tiles, separated by space only */
+.vc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--wide) var(--snug); }
+.vc-tile { display: grid; gap: 6px; align-content: start; }
+.vc-pic { aspect-ratio: 1; border-radius: var(--r-m); margin-bottom: var(--tight); }
+.vc-title { font-size: var(--small); font-weight: 500; line-height: 1.35; }
+
+/* D — typographic journal: the day number is the only large thing */
+.vd { list-style: none; margin: 0; padding: 0; display: grid; }
+.vd > li { padding: var(--base) 0; border-top: 1px solid var(--rule); }
+.vd > li:first-child { border-top: 0; padding-top: var(--tight); }
+.vd-row { display: grid; grid-template-columns: 3.5rem minmax(0, 1fr); gap: var(--snug); align-items: start; }
+.vd-date { display: grid; justify-items: start; }
+.vd-day { font-size: 2.5rem; font-weight: 300; line-height: 1; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+.vd-text { display: grid; gap: 6px; min-width: 0; }
+.vd-title { font-size: 1.1875rem; font-weight: 600; line-height: 1.3; }
+.vd-ex { color: var(--muted); font-size: var(--small); }
+
+/* E — cards on the Evergreen surface */
+.ve-cards { display: grid; gap: var(--snug); }
+.ve-card { display: grid; border-radius: var(--r-m); overflow: hidden; background: var(--surface); }
+.ve-pic { aspect-ratio: 16 / 9; border-radius: 0; }
+.ve-body { display: grid; gap: 6px; padding: var(--snug) var(--base) var(--base); }
+.ve-title { font-weight: 600; line-height: 1.35; }
+.ve-ex { color: var(--muted); font-size: var(--small); }
+
+@media (max-width: 22rem) {
+  .vc-grid { grid-template-columns: minmax(0, 1fr); }
+  .vd-row { grid-template-columns: minmax(0, 1fr); }
+  .vd-date { display: flex; gap: var(--tight); align-items: baseline; }
+  .va-row { grid-template-columns: minmax(0, 1fr) 56px; }
+  .va-pic { width: 56px; height: 56px; }
+  .lab-switch button { padding: 0 var(--tight); }
+}

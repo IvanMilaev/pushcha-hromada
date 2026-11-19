@@ -1,0 +1,13 @@
+{
+  "name": "Пуща-громада (прототип)",
+  "short_name": "Пуща",
+  "lang": "uk",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#3B3735",
+  "theme_color": "#3B3735",
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}

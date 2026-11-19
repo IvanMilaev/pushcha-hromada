@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Вулична бібліотечка на стовпчику (ілюстрація-заглушка)">
+  <rect width="600" height="450" fill="#003A35"/>
+  <rect x="290" y="290" width="20" height="160" fill="#8DB88F"/>
+  <path d="M200 160 300 80l100 80v140H200z" fill="#F2F1EC"/>
+  <rect x="226" y="170" width="148" height="104" fill="#001F27"/>
+  <rect x="240" y="196" width="18" height="78" fill="#F2866D"/>
+  <rect x="262" y="210" width="14" height="64" fill="#F5C451"/>
+  <rect x="280" y="190" width="20" height="84" fill="#1F73C2"/>
+  <rect x="304" y="206" width="14" height="68" fill="#8DB88F"/>
+  <rect x="322" y="198" width="18" height="76" fill="#F2F1EC"/>
+</svg>

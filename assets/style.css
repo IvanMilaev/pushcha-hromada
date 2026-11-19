@@ -1,0 +1,477 @@
+/* Pushcha hromada prototype — «Значок». One stylesheet for every page.
+   From the owner's Pinterest board wild-nature, pin 1 (a national-park identity):
+   flat colour blocks, a pine as the sign, chunky uppercase display type, a cream "paper" panel.
+   Pushcha-Vodytsia is a pine forest with ponds, so the pine is the site's own mark.
+
+   Colour carries meaning, never decoration:
+     pine block = works · maple block = missing · moss block = not verified · grey block = unknown;
+     the one action is a cream (dark theme) or mocha (light theme) button; links are blueberry.
+   Composition keeps the Zero Design System principles: a type scale with a gap (display caps, body,
+   small labels), one left edge, hairlines between list items, space steps 4 · 8 · 14 · 24 · 40 · 72.
+   One typeface, Rubik (owner, 2026-11-19; an exception to "no web fonts", see docs/plan.md §6): Black 900 for
+   display caps, 400–700 for text. Self-hosted in assets/fonts (SIL OFL, OFL.txt beside it), no request to another
+   site; if it cannot load, the system fonts below take over.
+   Dark (mocha) by default; light (cream) with the ◐ button. Text pairs are >= 4.5:1 (tools/check-site.mjs). */
+
+/* Rubik is a variable font: one file per alphabet holds every weight. The browser loads only the alphabets
+   a page uses (unicode-range): Ukrainian pages need both. */
+@font-face {
+  font-family: "Rubik"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("fonts/rubik-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Rubik"; font-style: normal; font-weight: 300 900; font-display: swap;
+  src: url("fonts/rubik-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+:root {
+  /* ground and text */
+  --bg: #3B3735;          /* Bear Claw Mocha */
+  --surface: #46413E;
+  --text: #F3EAD3;        /* cream */
+  --muted: #C9BFA8;
+  --rule: #5A534F;
+  --link: #A9BDEB;        /* Wild Blueberry, lightened for text */
+  /* the cream paper panel (inverted in the light theme) */
+  --paper: #F3EAD3;
+  --on-paper: #3B3735;
+  --paper-muted: #675F57;
+  --paper-rule: #D6CBB0;
+  --paper-link: #3A5A9E;
+  /* state words on the ground and on paper */
+  --ok-text: #8CC7A6;
+  --no-text: #F59A80;
+  --stale-text: #BEAA30;
+  --paper-ok: #196555;
+  --paper-no: #B23E20;
+  --paper-stale: #6E6000;
+  /* blocks: the same in both themes */
+  --pine: #196555;  --on-pine: #F3EAD3;    /* Eastern White Pine */
+  --maple: #F16A46; --on-maple: #1E1B1A;   /* Maple Leaf */
+  --moss: #BEAA30;  --on-moss: #3B3735;    /* Rock Moss */
+  --grey: #57514D;  --on-grey: #F3EAD3;
+  --blueberry: #6380C0;
+  /* home tiles: one neutral tone between the ground and the grey block */
+  --title-2: #BEAA30;                                  /* a page's name under «Пуща-Водиця» (moss) */
+  --tile: #4A4542; --on-tile: #F3EAD3; --tile-muted: #C9BFA8;
+  --tile-no: #F7A68E; --tile-stale: #D4C04A; --tile-ok: #8CC7A6;   /* state words on a tile, all >= 4.5:1 */
+  --blue: #4462A8;  --on-blue: #F3EAD3;               /* Wild Blueberry, a step darker so cream text passes 4.5:1 */
+  /* picture tones (a picture does not change with the theme) */
+  --tone-sage: #719A73; --tone-coral: #F2866D; --tone-marine: #1F73C2; --tone-sun: #F5C451; --tone-ever: #003A35; --tone-cream: #E9E6DC;
+
+  --display: "Rubik", "Arial Black", "Helvetica Neue", Roboto, system-ui, sans-serif;
+  /* Rubik first; if it cannot load, each phone's own good UI font. system-ui comes late: on Linux it is often DejaVu Sans. */
+  --font: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, "Helvetica Neue", Arial, system-ui, sans-serif;
+  --hair: 4px; --tight: 8px; --snug: 14px; --base: 24px; --wide: 40px; --section: 72px;
+  --r-s: 10px; --r-m: 14px; --r-pill: 999px;
+  --h1: 2.5rem;          /* page titles, display caps */
+  --body: 1.0625rem;     /* 17px */
+  --small: 0.9375rem;    /* 15px */
+  --micro: 0.75rem;      /* 12px labels */
+  --measure: 32rem;
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  --bg: #F3EAD3;
+  --surface: #E9DEC2;
+  --text: #3B3735;
+  --muted: #675F57;
+  --rule: #D6CBB0;
+  --link: #3A5A9E;
+  --paper: #3B3735;
+  --on-paper: #F3EAD3;
+  --paper-muted: #C9BFA8;
+  --paper-rule: #5A534F;
+  --paper-link: #A9BDEB;
+  --ok-text: #196555;
+  --no-text: #B23E20;
+  --stale-text: #6E6000;
+  --paper-ok: #8CC7A6;
+  --paper-no: #F59A80;
+  --paper-stale: #BEAA30;
+  --title-2: #6E6000;
+  --tile: #E9DEC2; --on-tile: #3B3735; --tile-muted: #675F57;
+  --tile-no: #A8391C; --tile-stale: #6E6000; --tile-ok: #196555;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font-family: var(--font); font-size: var(--body); line-height: 1.5;
+  padding: 0 var(--base) calc(88px + env(safe-area-inset-bottom, 0px));
+  overflow-wrap: break-word;
+}
+svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+a { color: var(--link); text-underline-offset: 0.2em; text-decoration-thickness: 1px; }
+:focus-visible { outline: 3px solid var(--link); outline-offset: 3px; border-radius: var(--r-s); }
+[hidden] { display: none !important; }
+
+.wrap, main, .top { max-width: var(--measure); margin-left: auto; margin-right: auto; }
+main { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--wide); padding-top: var(--wide); }
+section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--snug); }
+section + section { padding-top: calc(var(--section) - var(--wide)); }
+h1, h2, h3, p { margin: 0; }
+
+/* display caps: page titles and section names */
+h1, h2, .display { font-family: var(--display); font-weight: 900; text-transform: uppercase; }
+h1 { font-size: var(--h1); line-height: 0.95; text-wrap: balance; }
+h2 { font-size: 1.125rem; line-height: 1.2; letter-spacing: 0.03em; }
+h3 { font-size: var(--body); font-weight: 700; line-height: 1.4; }
+.micro { font-size: var(--micro); font-weight: 700; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-variant-numeric: tabular-nums; }
+.lead, .muted { color: var(--muted); }
+.small { font-size: var(--small); }
+.caption { font-size: var(--small); color: var(--muted); font-variant-numeric: tabular-nums; }
+.nowrap { white-space: nowrap; }
+.page-head { gap: var(--snug); container-type: inline-size; }
+/* Every page title runs exactly the width of the content (owner, 2026-11-19): app.js (fitTitles) measures it and
+   sets the size, up to 96px for a short word; before that, or without JS, a close guess from the column width. */
+.fit-title { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 11.5cqi; line-height: 0.9; white-space: nowrap; text-wrap: nowrap; }
+.fit-title span { display: inline-block; }
+/* «Пуща-Водиця» on every page (owner, 2026-11-19); on the inner pages it is the way home (no header any more).
+   The page's own name sits under it: smaller, in moss — the colour the pine sign had in the old header. */
+.site-name a { color: var(--text); text-decoration: none; }
+.page-title { font-size: 1.75rem; line-height: 1.05; color: var(--title-2); text-wrap: balance; }
+.site-name + .page-title { margin-top: calc(var(--tight) - var(--snug)); }
+/* Published for partners (owner, 2026-11-19): a band on top of every page says it is a concept with made-up data,
+   so a neighbour who finds the link does not take «Немає води» for real. */
+.concept-banner { margin: 0 calc(-1 * var(--base)); padding: var(--tight) var(--snug); background: var(--moss); color: var(--on-moss);
+  font-size: var(--small); font-weight: 700; text-align: center; }
+/* No header on any page (owner): the sample label and the theme button sit at the foot, above the small print. */
+.page-foot { margin-top: var(--base); }
+.site-footer .page-foot { margin: 0 0 var(--snug); }
+
+/* ---------- top line: only the design labs (wild.html, news-variants.html) keep it ---------- */
+.top { display: flex; align-items: center; justify-content: space-between; gap: var(--snug); padding: var(--base) 0 0; }
+.top .caption { display: flex; flex-wrap: wrap; align-items: center; gap: var(--tight) var(--snug); color: var(--muted); }
+.brand {
+  display: inline-flex; align-items: center; gap: var(--tight); min-height: 44px;
+  font-family: var(--display); font-weight: 900; font-size: 1.25rem; letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text); text-decoration: none;
+}
+.brand svg { width: 28px; height: 28px; color: var(--stale-text); }
+.sample-banner {
+  display: inline-block; padding: 1px var(--tight); border-radius: var(--r-pill);
+  border: 1px solid var(--stale-text); color: var(--stale-text); font-size: var(--micro); font-weight: 700;
+}
+.icon-btn {
+  flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-pill);
+  border: 0; background: transparent; color: var(--muted); cursor: pointer;
+}
+
+.tabbar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  display: flex; justify-content: space-around; gap: var(--hair);
+  padding: var(--tight) var(--snug) calc(var(--tight) + env(safe-area-inset-bottom, 0px));
+  background: var(--bg); border-top: 1px solid var(--rule);
+}
+.tabbar a {
+  display: grid; justify-items: center; gap: 2px; min-width: 56px; min-height: 52px; padding-top: var(--hair);
+  color: var(--muted); text-decoration: none; font-size: var(--micro);
+}
+.tabbar a[aria-current] { color: var(--text); font-weight: 700; }
+.site-footer { padding: var(--section) 0 var(--base); font-size: var(--small); color: var(--muted); }
+.site-footer .wrap { display: grid; gap: var(--hair); }
+
+/* ---------- actions ---------- */
+/* the one action per screen: an inverted block — cream on mocha, mocha on cream */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; justify-self: start;
+  min-height: 48px; padding: 0 18px; border: 2px solid var(--text); border-radius: var(--r-s);
+  background: var(--text); color: var(--bg); text-decoration: none; cursor: pointer;
+  font-family: var(--display); font-weight: 900; font-size: var(--small); letter-spacing: 0.04em; text-transform: uppercase;
+}
+.btn svg { width: 18px; height: 18px; stroke-width: 2.6; }
+.btn-ghost { background: transparent; color: var(--text); }
+.btn-small, .ghost {
+  display: inline-flex; align-items: center; gap: 6px; justify-self: start;
+  min-height: 44px; padding: 0; border: 0; background: transparent;
+  color: var(--link); font: inherit; font-size: var(--small); text-decoration: none; cursor: pointer;
+}
+.btn-small svg, .ghost svg { width: 18px; height: 18px; }
+.actions, .btn-row { display: flex; flex-wrap: wrap; gap: 0 var(--base); }
+
+.feedback { font-size: var(--small); color: var(--ok-text); }
+.feedback:empty { display: none; }
+.copy-box {
+  width: 100%; min-height: 10rem; padding: var(--snug); border-radius: var(--r-s);
+  border: 1px solid var(--rule); background: var(--surface); color: var(--text); font: inherit; font-size: var(--small);
+}
+.jump { display: flex; flex-wrap: wrap; gap: 0 var(--base); margin: 0; padding: 0; list-style: none; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--small); text-decoration: none; }
+
+.notice { padding-left: var(--snug); border-left: 3px solid var(--stale-text); font-size: var(--small); }
+.verify { color: var(--stale-text); font-size: var(--micro); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.is-target { outline: 2px solid var(--link); outline-offset: 6px; border-radius: var(--r-s); }
+section > a:not([class]) { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
+.card-meta { font-size: var(--small); color: var(--muted); }
+.card-meta a { display: inline-block; padding: 2px 0; }
+.tag { font-size: var(--micro); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- the former cream paper panel: now plain, like everything else (owner, 2026-11-19: one look;
+   colour only where it means something). The class stays on status.html and news.html as a hook. ---------- */
+.paper { padding: 0; background: none; color: inherit; }
+
+/* ---------- lists: each item a neutral tile, as on the home page (label + title at rest) ----------
+   Inside a tile the text tokens are swapped for the tile's, so everything that uses --text, --muted or a state
+   colour reads at 4.5:1 on the tile without its own rule. */
+.list { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--snug); margin: 0; padding: 0; list-style: none; }
+.list > li {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: 6px; padding: var(--snug); border-radius: var(--r-s);
+  background: var(--tile); color: var(--on-tile);
+  --text: var(--on-tile); --muted: var(--tile-muted); --no-text: var(--tile-no); --stale-text: var(--tile-stale); --ok-text: var(--tile-ok);
+}
+.list > li.muted, .list > li.caption { background: none; padding: var(--tight) 0; color: var(--muted); }
+/* the freshest news leads in pine, as on the home page; its picture runs to the tile's edges */
+.list > li.lead-news { background: var(--pine); --text: var(--on-pine); --muted: var(--on-pine); --link: var(--on-pine); color: var(--on-pine); }
+.list > li.lead-news a { text-decoration: underline; }
+.list > li.lead-news .lead-pic { width: calc(100% + 2 * var(--snug)); max-width: none; margin: calc(-1 * var(--snug)) calc(-1 * var(--snug)) var(--tight);
+  border-radius: var(--r-s) var(--r-s) 0 0; }
+/* the regular coffee meeting in moss, as on the home page */
+.list > li.is-coffee { background: var(--moss); --text: var(--on-moss); --muted: var(--on-moss); --link: var(--on-moss); color: var(--on-moss); }
+.list > li.is-coffee a { text-decoration: underline; }
+.item-title { display: block; font-size: var(--body); font-weight: 500; line-height: 1.4; color: var(--text); }
+.item.is-past .item-title { color: var(--muted); }
+.item summary { display: grid; gap: 6px; position: relative; padding-right: var(--wide); min-height: 44px; list-style: none; cursor: pointer; }
+.item summary::-webkit-details-marker { display: none; }
+.item summary::after {
+  content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+  font-size: 1.375rem; font-weight: 300; line-height: 1; color: var(--muted);
+}
+.item details[open] > summary::after { content: "–"; }
+.item-body { display: grid; gap: var(--tight); justify-items: start; padding-top: var(--snug); max-width: 65ch; }
+.item-body > * { max-width: 100%; }
+.item-body .meta, .item-body .alarm { font-size: var(--small); color: var(--muted); }
+.alarm { padding-left: var(--snug); border-left: 3px solid var(--stale-text); }
+.item-body .actions { padding-top: var(--hair); }
+.pr-0 { color: var(--no-text); }      /* problem: new */
+.pr-1 { color: var(--stale-text); }   /* problem: being dealt with */
+.pr-2 { color: var(--ok-text); }      /* problem: solved */
+.g-open { color: var(--stale-text); }
+.g-yes { color: var(--ok-text); }
+.g-no { color: var(--no-text); }
+.row { display: grid; gap: 6px; min-height: 44px; color: var(--text); text-decoration: none; }
+
+.steps, .plain { margin: 0; padding-left: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tight); }
+.steps li::marker { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
+pre.template {
+  margin: 0; padding: var(--snug) var(--base); background: var(--surface); border-radius: var(--r-s);
+  white-space: pre-wrap; font: inherit; font-size: var(--small);
+}
+
+/* news pictures and their weak-connection stand-ins */
+.pic { display: block; width: 100%; max-width: 100%; height: auto; object-fit: cover; border-radius: var(--r-m); background: var(--surface); }
+.ph { aspect-ratio: 4 / 3; }
+.t-sage { background: var(--tone-sage); }
+.t-coral { background: var(--tone-coral); }
+.t-marine { background: var(--tone-marine); }
+.t-sun { background: var(--tone-sun); }
+.t-ever { background: var(--tone-ever); }
+.t-cream { background: var(--tone-cream); }
+.lead-news summary { padding-right: 0; gap: var(--tight); grid-template-columns: minmax(0, 1fr); }   /* the bled picture must not widen the column */
+.lead-news summary::after { top: auto; bottom: 0; transform: none; }
+.lead-pic { aspect-ratio: 16 / 10; margin-bottom: var(--tight); }
+.pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--micro); color: var(--muted); }
+.lead-title { font-size: 1.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--text); }
+.lead-ex { color: var(--muted); padding-right: var(--wide); }
+.lead-news details[open] .lead-ex { display: none; }
+
+/* ---------- home: a board of tiles (owner, 2026-11-19; the brand sheet on board wild-nature) ----------
+   One neutral tone for all tiles (owner: too many colours); the kind is named in the small label. The only
+   accent is a wide maple tile at the top when a service is missing — colour carries meaning, as everywhere.
+   Inside a tile: a small caps label, an optional big display word, a title, one meta line at the bottom. */
+.home { gap: var(--base); }
+.home section + section { padding-top: 0; }
+.bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; gap: var(--base) var(--snug); }   /* rows 24, columns 14 (owner) */
+.bt {
+  position: relative; overflow: hidden; display: flex; flex-direction: column; gap: var(--tight);
+  min-height: 10.5rem; padding: var(--snug); border-radius: var(--r-s); text-decoration: none; overflow-wrap: anywhere;
+}
+.bt-wide { grid-column: 1 / -1; min-height: 0; }
+.bt-kind { font-size: var(--micro); font-weight: 800; line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; }
+.bt-big { font-family: var(--display); font-weight: 900; font-size: 1.375rem; line-height: 1; text-transform: uppercase; overflow-wrap: normal; }
+.bt-wide .bt-big { font-size: 2.25rem; }
+.bt-title { font-weight: 800; line-height: 1.25; }
+.bt-wide .bt-title { font-size: 1.375rem; letter-spacing: -0.01em; }
+.bt-text { font-size: var(--small); line-height: 1.4; }
+.bt-meta { margin-top: auto; font-size: var(--small); font-weight: 600; line-height: 1.35; }
+.bt-pic { display: block; width: calc(100% + 2 * var(--snug)); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
+  margin: 0 calc(-1 * var(--snug)); background: var(--surface); }
+.bt-pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--micro); line-height: 1.3; }   /* "Фото: згенероване зображення…" */
+.bt-mark { position: absolute; right: -10px; bottom: -8px; width: 84px; height: 84px; opacity: 0.22; pointer-events: none; }
+.bt-mark ~ .bt-meta, .bt-coffee .bt-title { padding-right: 52px; }
+/* Colour by importance, not by kind (owner: one colour per kind was too much, all neutral too flat):
+   small tiles are neutral, the kind in a quiet label, a state word in colour where it matters;
+   the two wide tiles — the freshest news and the lead initiative — carry a block colour;
+   the strongest accent is maple: a service is missing. */
+.bt { background: var(--tile); color: var(--on-tile); }
+.bt-kind { color: var(--tile-muted); }
+.bt-kind .bt-st-no { color: var(--tile-no); }        /* a new problem */
+.bt-kind .bt-st-stale { color: var(--tile-stale); }  /* gossip: not verified */
+.bt-wide.bt-news { background: var(--pine); color: var(--on-pine); }
+.bt-wide.bt-initiative { background: var(--blue); color: var(--on-blue); }
+.bt-coffee { background: var(--moss); color: var(--on-moss); }   /* the regular coffee meeting: worth noticing (owner) */
+.bt-alarm { background: var(--maple); color: var(--on-maple); }
+.bt-wide .bt-kind, .bt-alarm .bt-kind, .bt-coffee .bt-kind { color: inherit; }
+.bt-add { background: transparent; border: 2px dashed var(--rule); color: var(--text); }
+.bt-add .bt-kind { color: var(--muted); }
+.bt-add .bt-big { font-size: 2.5rem; }
+.bt:hover { filter: brightness(1.06); }
+.bt:active { transform: translateY(1px); }
+@media (prefers-reduced-motion: reduce) { .bt:active { transform: none; } }
+@media (max-width: 15rem) { .bento { grid-template-columns: minmax(0, 1fr); } }
+
+.meta-line { display: flex; align-items: center; justify-content: space-between; gap: var(--snug); margin-top: var(--snug); }
+.more { display: inline-flex; align-items: center; justify-content: flex-end; min-width: 44px; min-height: 44px; font-size: var(--small); text-decoration: none; }
+
+/* ---------- status page: one colour block per service ---------- */
+.tiles { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.tile {
+  display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--snug); row-gap: 4px; align-items: baseline;
+  padding: var(--snug); border-radius: var(--r-s); background: var(--grey); color: var(--on-grey);
+}
+.tile-name { font-family: var(--display); font-weight: 900; text-transform: uppercase; }
+.tile-state { font-weight: 700; text-align: right; white-space: nowrap; }
+.tile-meta, .tile-note { grid-column: 1 / -1; font-size: var(--small); }
+.st-yes { background: var(--pine); color: var(--on-pine); }
+.st-no { background: var(--maple); color: var(--on-maple); }
+.st-stale { background: var(--moss); color: var(--on-moss); }
+.status-meta { font-size: var(--small); color: var(--muted); }
+#event { display: grid; gap: var(--tight); }
+
+/* ---------- add ---------- */
+.type-buttons { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--tight); }
+.type-buttons .btn { justify-self: stretch; }
+.type-buttons .btn[aria-pressed="false"] { background: transparent; color: var(--text); border-color: var(--rule); }
+
+/* ---------- map (concept): a printed stipple map (owner's reference: Avignon festival map) ----------
+   No frame: the map lies on the page colour and ends at an uneven, sharp edge (no fading).
+   Forest = loose patches of small green dots; water bright blue; main roads thick, the tram thick and dashed; long named
+   streets hairlines. Three zones of the grid, seen only under the mouse: no names drawn, no status. */
+:root { --map-dot: #6F9E7B; --map-tree: #8CC7A6; --map-water: #7EA6F2; --map-road: #6F685F; --map-street: #8A8174; --map-ink: #F3EAD3; --map-label: #C9BFA8; }
+:root[data-theme="light"] { --map-dot: #7FAE8C; --map-tree: #3F8A66; --map-water: #3F7FE6; --map-road: #CDBF9F; --map-street: #B3A68A; --map-ink: #3B3735; --map-label: #675F57; }
+.map-box { position: relative; margin: 0 calc(-1 * var(--base)); }       /* bleeds to the screen edges */
+/* zoom (map.js): + / − / whole map in the top-right corner (the north arrow has the top-left one).
+   At rest one finger scrolls the page; zoomed in, one finger or the mouse drags the map. */
+.map-box .map-svg { touch-action: pan-y; }
+.map-box.is-zoomed .map-svg { touch-action: none; cursor: grab; }
+.map-box.is-dragging .map-svg, .map-box.is-dragging .map-svg .m-zone { cursor: grabbing; }
+.map-zoom { position: absolute; top: var(--tight); right: var(--snug); display: grid; gap: var(--tight); }
+.map-zoom button {
+  display: grid; place-items: center; width: 44px; height: 44px; padding: 0; border: 1px solid var(--rule);
+  border-radius: var(--r-pill); background: var(--bg); color: var(--text); cursor: pointer;
+}
+.map-zoom button:disabled { color: var(--rule); cursor: default; }
+.map-zoom svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.map-svg { display: block; width: 100%; height: auto; stroke: none; fill: none; }   /* not the icon defaults */
+.map-svg path { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+.map-svg #m-tree-shape { fill: inherit; }
+/* zones: invisible at rest (owner); only the zone under the mouse is tinted a little towards the ink, and shows
+   its name (its <title>). The mouse reaches the zones through everything drawn over them (a fill at opacity 0
+   still catches the mouse). What a click does is not decided yet. */
+.map-svg * { pointer-events: none; }
+.map-svg .m-zone { fill: var(--map-ink); fill-opacity: 0; pointer-events: auto; cursor: pointer; transition: fill-opacity 0.15s; }
+.map-svg .m-zone:hover { fill-opacity: 0.14; }
+@media (prefers-reduced-motion: reduce) { .map-svg .m-zone { transition: none; } }
+/* --mz (set by map.js) = 1 / √zoom: zoomed in, lines, dots and words grow more slowly than the map itself */
+.map-svg .m-forest { stroke: var(--map-dot); stroke-width: calc(3px * var(--mz, 1)); }
+.map-svg .m-tree { fill: var(--map-tree); }
+.map-svg .m-road { stroke: var(--map-street); stroke-width: calc(1.3px * var(--mz, 1)); }
+/* main roads: the street colour, only thicker; the tram: the same, dashed */
+.map-svg .m-road-major { stroke: var(--map-street); stroke-width: calc(3.4px * var(--mz, 1)); }
+.map-svg .m-river { stroke: var(--map-water); stroke-width: calc(3.2px * var(--mz, 1)); }
+.map-svg .m-water { fill: var(--map-water); }
+.map-svg .m-tram { stroke: var(--map-street); stroke-width: calc(3.4px * var(--mz, 1)); stroke-linecap: butt; stroke-dasharray: calc(7px * var(--mz, 1)) calc(4px * var(--mz, 1)); }
+.map-svg .m-place { fill: var(--map-label); font-family: var(--font); font-weight: 600; font-size: calc(12.5px * var(--mz, 1)); dominant-baseline: middle; }
+.map-svg .m-north circle { fill: var(--bg); }   /* a patch of page colour under the arrow, over any road */
+.map-svg .m-north path { fill: var(--map-ink); }
+.map-svg .m-north text { fill: var(--map-ink); font-family: var(--font); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-anchor: middle; }
+
+.chip { display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 4px; }
+.chip.chip-forest { background: radial-gradient(circle, var(--map-dot) 1.6px, transparent 2.2px) 1px 1px / 7px 7px; }
+.chip.chip-water { background: var(--map-water); }
+.chip.chip-tram { height: 4px; border-radius: 0; background: repeating-linear-gradient(90deg, var(--map-street) 0 6px, transparent 6px 9px); }
+.chip.chip-road { height: 4px; border-radius: 2px; background: var(--map-street); }
+.map-legend { display: flex; flex-wrap: wrap; gap: var(--tight) var(--base); margin: 0; padding: 0; list-style: none; font-size: var(--small); }
+.map-legend li { display: inline-flex; align-items: center; gap: var(--tight); }
+.map-credit { text-transform: none; letter-spacing: 0; font-weight: 400; }
+
+/* ---------- markers: what is happening where (map.js) ----------
+   One marker per landmark, coloured by the most important thing there: problem maple, meeting moss,
+   initiative blueberry, news pine, a solved problem grey. A number when there is more than one thing.
+   The marker keeps its size while the map zooms (scale(var(--mz)) in map.js). */
+.map-svg .m-spot { pointer-events: auto; cursor: pointer; outline: none; }
+.map-svg .m-spot-hit { fill: transparent; pointer-events: all; }
+.map-svg .m-spot-dot { stroke: var(--bg); stroke-width: 2.5; }
+.map-svg .m-spot-problem .m-spot-dot { fill: var(--maple); }
+.map-svg .m-spot-event .m-spot-dot { fill: var(--moss); }
+.map-svg .m-spot-initiative .m-spot-dot { fill: var(--blue); }
+.map-svg .m-spot-news .m-spot-dot { fill: var(--pine); }
+.map-svg .m-spot-solved .m-spot-dot { fill: var(--grey); }
+.map-svg .m-spot-n { font-family: var(--font); font-size: 13px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.map-svg .m-spot-problem .m-spot-n { fill: var(--on-maple); }
+.map-svg .m-spot-event .m-spot-n { fill: var(--on-moss); }
+.map-svg .m-spot-initiative .m-spot-n { fill: var(--on-blue); }
+.map-svg .m-spot-news .m-spot-n { fill: var(--on-pine); }
+.map-svg .m-spot-solved .m-spot-n { fill: var(--on-grey); }
+.map-svg .m-spot.is-on .m-spot-dot, .map-svg .m-spot:focus-visible .m-spot-dot { stroke: var(--text); stroke-width: 3.5; }
+.map-svg .m-spot.is-on .m-spot-dot { r: 14px; }
+.chip.chip-spot { width: 14px; height: 14px; border-radius: 50%; }
+.chip-spot-problem { background: var(--maple); }
+.chip-spot-event { background: var(--moss); }
+.chip-spot-initiative { background: var(--blue); }
+.chip-spot-news { background: var(--pine); }
+/* what is at the tapped marker: a tile like the list items, each thing a link to its page */
+.spot-card {
+  display: grid; gap: var(--tight); padding: var(--snug); border-radius: var(--r-s); background: var(--tile); color: var(--on-tile);
+  --text: var(--on-tile); --muted: var(--tile-muted); --no-text: var(--tile-no);
+}
+.spot-items { display: grid; gap: var(--tight); margin: 0; padding: 0; list-style: none; }
+.spot-item { display: grid; gap: 4px; min-height: 44px; padding: var(--tight) 0; color: var(--text); text-decoration: none; }
+.spot-items li + li .spot-item { border-top: 1px solid var(--rule); padding-top: var(--snug); }
+.spot-item.is-picked .item-title { text-decoration: underline; text-underline-offset: 3px; }
+.spot-kind-problem { color: var(--no-text); }
+/* «На мапі»: on a home tile, a small round button in its corner (a sibling of the tile link, never inside it) */
+.bt-box { position: relative; display: grid; min-width: 0; }
+.bt-box.bt-wide { grid-column: 1 / -1; }
+.bt-box > .bt { height: 100%; }
+.bt-box > .bt .bt-kind { padding-right: 44px; overflow-wrap: normal; }   /* wrap between words, never inside one */
+.bt-map {
+  position: absolute; top: 4px; right: 4px; display: grid; place-items: center; width: 44px; height: 44px;
+  border-radius: var(--r-pill); color: var(--on-tile); background: rgba(0, 0, 0, 0.14);
+}
+.bt-map svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.bt-box > .bt-wide.bt-news ~ .bt-map { color: var(--on-pine); }
+.bt-box > .bt-wide.bt-initiative ~ .bt-map { color: var(--on-blue); }
+.bt-box > .bt-coffee ~ .bt-map { color: var(--on-moss); }
+
+/* ---------- narrow screens and 200% zoom ---------- */
+@media (max-width: 22rem) {
+  body { padding-left: var(--snug); padding-right: var(--snug); }
+  h1 { font-size: 1.875rem; }
+  .tile-state, .tile-name, h1, h2, .micro, .brand { overflow-wrap: anywhere; }
+  .tile { grid-template-columns: minmax(0, 1fr); }
+  .tile-state { text-align: left; white-space: normal; }
+  .meta-line { flex-wrap: wrap; }
+  .type-buttons { grid-template-columns: minmax(0, 1fr); }
+  .btn { justify-self: stretch; padding: var(--tight) var(--snug); }
+  .item:not(.lead-news) summary { padding-right: var(--base); }
+  .bt { min-height: 9rem; padding: 12px; }
+  .bt-big { font-size: 1.25rem; }
+  .bt-wide .bt-big { font-size: 1.75rem; }
+  .bt-pic { width: calc(100% + 24px); margin: 0 -12px; }
+  .paper { padding-left: var(--snug); padding-right: var(--snug); }
+  .map-box { margin: 0 calc(-1 * var(--snug)); }
+  .concept-banner { margin: 0 calc(-1 * var(--snug)); }
+}
+@media (max-height: 30rem), (max-width: 15rem) {
+  body { padding-bottom: var(--base); }
+  .tabbar { position: static; flex-wrap: wrap; margin-top: var(--wide); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}

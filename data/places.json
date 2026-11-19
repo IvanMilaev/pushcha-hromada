@@ -1,0 +1,16 @@
+{
+  "sample": true,
+  "note": "Landmarks for the map (map.html). Public places only: ponds, a stop, a library, a school, a café. Never a home, never a utility network, never a strike site. Items point to a landmark with \"spot\": \"<id>\". The ponds are from OpenStreetMap; the other points are sample positions.",
+  "places": [
+    { "id": "miskyi-stav", "name": "Міський став", "lat": 50.52844, "lon": 30.35225 },
+    { "id": "miskyi-mistok", "name": "Міський став, біля містка", "lat": 50.52985, "lon": 30.35262 },
+    { "id": "horashchykha", "name": "ставок Горащиха", "lat": 50.53584, "lon": 30.34951 },
+    { "id": "sukhostii", "name": "ліс біля Горащихи, ділянка сухостою (приклад)", "lat": 50.53720, "lon": 30.34380 },
+    { "id": "zupynka", "name": "трамвайна зупинка (приклад)", "lat": 50.53704, "lon": 30.35593 },
+    { "id": "kavyarnia", "name": "кав'ярня біля зупинки (приклад)", "lat": 50.53740, "lon": 30.35680 },
+    { "id": "biblioteka", "name": "бібліотека (приклад)", "lat": 50.53150, "lon": 30.36000 },
+    { "id": "shkola", "name": "школа (приклад)", "lat": 50.54300, "lon": 30.35150 },
+    { "id": "uzlissia", "name": "узлісся біля 7-ї лінії, ділянка під забудову (приклад)", "lat": 50.54000, "lon": 30.36600 },
+    { "id": "dachi", "name": "квартали старих дерев'яних дач (приклад)", "lat": 50.53400, "lon": 30.35900 }
+  ]
+}

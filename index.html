@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Пуща-Водиця — Пуща-громада (прототип)</title>
+<meta name="description" content="Що відбувається в Пущі-Водиці: новини, проблеми, ініціативи й плітки сусідів. Прототип із вигаданими даними.">
+<meta name="theme-color" content="#3B3735">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+<script src="assets/home.js" defer></script>
+</head>
+<!-- Home (owner, 2026-11-19): no longer centred on the utility status. A board of tiles (board wild-nature,
+     the brand sheet) in one neutral tone; only what needs action has an accent colour: a wide maple tile at
+     the top when a service is missing, above the title. No header (owner): the title names the place; the sample
+     label and the theme button sit under the tiles. -->
+<body data-page="now">
+<p class="concept-banner">Концепт для партнерів. Усі дані на сайті вигадані.</p>
+
+<main class="home">
+  <!-- only when a service is missing: the one accent tile, above everything else (home.js) -->
+  <div class="home-alarm" id="alarm" hidden></div>
+
+  <section class="page-head">
+    <h1 class="fit-title" id="fit-title"><span>Пуща-Водиця</span></h1>
+  </section>
+
+  <section aria-label="Новини, проблеми, ініціативи й плітки">
+    <div class="bento" id="bento">
+      <p class="caption">Завантаження…</p>
+    </div>
+    <noscript>
+      <p class="notice">Щоб побачити плитки, увімкніть JavaScript. Без нього працюють сторінки
+        <a href="news.html">Новини</a>, <a href="status.html">Стан і вода</a> та <a href="emergencies.html">Що робити, якщо…</a></p>
+    </noscript>
+    <div class="meta-line">
+      <a class="more" href="news.html">Усі новини, проблеми й ініціативи</a>
+      <button class="ghost" id="share" type="button"><svg aria-hidden="true"><use href="assets/icons.svg#i-share"/></svg>Поділитися</button>
+    </div>
+    <p class="feedback" id="copy-feedback" aria-live="polite"></p>
+    <textarea class="copy-box" id="copy-box" readonly aria-label="Текст для копіювання" hidden></textarea>
+    <!-- no header on the home page (owner): the sample label and the theme button live here -->
+    <div class="meta-line page-foot">
+      <span class="sample-banner">Тестові дані</span>
+      <button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button>
+    </div>
+  </section>
+</main>
+
+<nav class="tabbar" aria-label="Розділи">
+  <a href="index.html" aria-current="page"><svg aria-hidden="true"><use href="assets/icons.svg#i-home"/></svg>Зараз</a>
+  <a href="news.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-news"/></svg>Новини</a>
+  <a href="events.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-calendar"/></svg>Події</a>
+  <a href="help.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>Допомога</a>
+  <a href="more.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-more"/></svg>Ще</a>
+</nav>
+</body>
+</html>

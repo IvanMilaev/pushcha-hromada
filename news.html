@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Новини — Пуща-громада (прототип)</title>
+<meta name="theme-color" content="#3B3735">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-page="news">
+<p class="concept-banner">Концепт для партнерів. Усі дані на сайті вигадані.</p>
+<main class="wrap">
+  <!-- One job per screen: the title, one line, then the list. Each item is a label and a title; tap opens it. -->
+  <section class="page-head">
+    <p class="fit-title site-name"><a href="index.html"><span>Пуща-Водиця</span></a></p>
+    <h1 class="page-title">Новини</h1>
+    <p class="lead">Кожна — з джерелом і з тим, хто перевірив.</p>
+    <p class="notice" id="offline-note" role="status" hidden>Немає зв’язку — показано збережене.</p>
+    <noscript><p class="notice">Щоб побачити новини, увімкніть JavaScript.</p></noscript>
+  </section>
+
+  <section id="news" aria-label="Новини">
+    <ul class="list" id="news-list"><li class="muted">Завантаження…</li></ul>
+    <p class="feedback" id="copy-feedback" aria-live="polite"></p>
+    <textarea class="copy-box" id="copy-box" readonly aria-label="Текст для копіювання" hidden></textarea>
+  </section>
+
+  <section id="problems" aria-labelledby="h-problems">
+    <h2 id="h-problems">Проблеми</h2>
+    <p class="lead">Що в Пущі зламалося чи заважає, і що з цим роблять. Кожна — з джерелом і з тим, хто перевірив.</p>
+    <ul class="list" id="problem-list"><li class="muted">Завантаження…</li></ul>
+  </section>
+
+  <section id="initiatives" aria-labelledby="h-initiatives">
+    <h2 id="h-initiatives">Ініціативи</h2>
+    <p class="lead">Що сусіди роблять разом, і як долучитися.</p>
+    <ul class="list" id="initiative-list"><li class="muted">Завантаження…</li></ul>
+  </section>
+
+  <section id="gossip" aria-labelledby="h-gossip" class="paper">
+    <h2 id="h-gossip">Плітки</h2>
+    <p class="lead">Добрі чутки, які ще ніхто не перевірив. Лише про місця, події й відкриття — ніколи про людей, війну, здоров’я чи небезпеку. Зникають через 7 днів.</p>
+    <ul class="list" id="gossip-list"></ul>
+  </section>
+
+  <section aria-labelledby="h-add">
+    <h2 id="h-add">Знаєте щось нове?</h2>
+    <div class="actions">
+      <a class="btn-small" href="add.html#news"><svg aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>Додати новину</a>
+      <a class="btn-small" href="add.html#problem"><svg aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>Повідомити про проблему</a>
+      <a class="btn-small" href="add.html#initiative"><svg aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>Запропонувати ініціативу</a>
+      <a class="btn-small" href="add.html#gossip"><svg aria-hidden="true"><use href="assets/icons.svg#i-plus"/></svg>Розказати плітку</a>
+    </div>
+  </section>
+
+  <section aria-label="Картинки">
+    <button class="btn-small" id="pictures-btn" type="button">Без картинок (економія трафіку)</button>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="meta-line page-foot"><span class="sample-banner">Тестові дані</span><button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button></div>
+  <p>Прототип: усе на сайті вигадане для прикладу. Доповнює місцеві чати в Telegram і Viber, а не замінює їх.</p>
+  <p>Без реклами, аналітики й трекерів.</p>
+</div></footer>
+
+<nav class="tabbar" aria-label="Розділи">
+  <a href="index.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-home"/></svg>Зараз</a>
+  <a href="news.html" aria-current="page"><svg aria-hidden="true"><use href="assets/icons.svg#i-news"/></svg>Новини</a>
+  <a href="events.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-calendar"/></svg>Події</a>
+  <a href="help.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>Допомога</a>
+  <a href="more.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-more"/></svg>Ще</a>
+</nav>
+</body>
+</html>

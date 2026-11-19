@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Сцена із завісою (ілюстрація-заглушка)">
+  <rect width="600" height="450" fill="#001F27"/>
+  <ellipse cx="300" cy="400" rx="170" ry="40" fill="#F5C451"/>
+  <circle cx="300" cy="300" r="34" fill="#F2F1EC"/>
+  <rect x="270" y="330" width="60" height="70" rx="30" fill="#F2F1EC"/>
+  <path d="M0 0h230c-20 120-60 260-150 450H0z" fill="#F2866D"/>
+  <path d="M600 0H370c20 120 60 260 150 450h80z" fill="#F2866D"/>
+  <path d="M0 0h600v46H0z" fill="#C9634E"/>
+</svg>

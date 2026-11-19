@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Новини: 5 варіантів — Пуща-громада (дизайн-лабораторія)</title>
+<meta name="theme-color" content="#001F27">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<link rel="stylesheet" href="assets/variants.css">
+<script src="assets/app.js" defer></script>
+<script src="assets/variants.js" defer></script>
+</head>
+<!-- Design lab, not part of the site: five ways to present the same news, and a low-data switch
+     that replaces every picture with a colour field. Not linked from the menu, not cached offline. -->
+<body data-page="lab">
+
+<header class="top">
+  <p class="caption"><span class="sample-banner">Тестові дані</span> <a class="brand" href="news.html">← Новини зараз</a></p>
+  <button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button>
+</header>
+
+<div class="lab-bar" role="group" aria-label="Варіанти подання новин">
+  <div class="lab-switch">
+    <button type="button" data-v="a" aria-pressed="true">A</button>
+    <button type="button" data-v="b" aria-pressed="false">B</button>
+    <button type="button" data-v="c" aria-pressed="false">C</button>
+    <button type="button" data-v="d" aria-pressed="false">D</button>
+    <button type="button" data-v="e" aria-pressed="false">E</button>
+  </div>
+  <button class="lab-lite" type="button" id="lite" aria-pressed="false">Слабкий зв’язок</button>
+</div>
+
+<main class="wrap">
+  <section class="page-head">
+    <p class="micro" id="v-name"></p>
+    <h1>Новини</h1>
+    <p class="lead" id="v-why"></p>
+  </section>
+  <section id="variant" aria-live="polite"></section>
+</main>
+</body>
+</html>

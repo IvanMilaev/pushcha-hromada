@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Хлібини (ілюстрація-заглушка)">
+  <rect width="600" height="450" fill="#F5C451"/>
+  <ellipse cx="250" cy="250" rx="150" ry="78" fill="#C9634E"/>
+  <path d="M170 220l30 50M225 210l30 55M280 205l30 55" stroke="#F5C451" stroke-width="12" stroke-linecap="round"/>
+  <ellipse cx="400" cy="300" rx="100" ry="62" fill="#F2F1EC"/>
+  <path d="M360 285l22 36M410 278l22 36" stroke="#F5C451" stroke-width="10" stroke-linecap="round"/>
+</svg>

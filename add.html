@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Додати — Пуща-громада (прототип)</title>
+<meta name="theme-color" content="#3B3735">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-page="add">
+<p class="concept-banner">Концепт для партнерів. Усі дані на сайті вигадані.</p>
+<main class="wrap">
+  <section class="page-head">
+    <p class="fit-title site-name"><a href="index.html"><span>Пуща-Водиця</span></a></p>
+    <h1 class="page-title">Додати</h1>
+    <p>Без реєстрації. Ви пишете модератору в Telegram, він перевіряє й публікує.</p>
+    <p class="muted small">Що ви хочете додати?</p>
+    <div class="type-buttons" role="group" aria-label="Що додати">
+      <button class="btn" type="button" data-type="help" aria-pressed="true">Допомога</button>
+      <button class="btn" type="button" data-type="news" aria-pressed="false">Новина</button>
+      <button class="btn" type="button" data-type="problem" aria-pressed="false">Проблема</button>
+      <button class="btn" type="button" data-type="initiative" aria-pressed="false">Ініціатива</button>
+      <button class="btn" type="button" data-type="gossip" aria-pressed="false">Плітка</button>
+      <button class="btn" type="button" data-type="event" aria-pressed="false">Подія</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="type-title">
+    <h2 id="type-title">Прохання або пропозиція допомоги</h2>
+    <p class="notice" id="type-rules">Без точних адрес, документів і діагнозів. Модератор з’єднає вас напряму.</p>
+    <ol class="steps">
+      <li>Натисніть кнопку нижче — відкриється Telegram із готовим шаблоном.</li>
+      <li>Заповніть шаблон кількома словами й надішліть.</li>
+      <li>З’явиться на сайті після перевірки модератором.</li>
+    </ol>
+    <a class="btn" id="tg-btn" href="#template" rel="noopener noreferrer">Написати модератору в Telegram</a>
+    <p class="notice" id="tg-note">Тестовий режим: контакт модератора ще не вказано. Telegram запропонує вибрати чат самостійно — нікому нічого не надсилайте.</p>
+  </section>
+
+  <section aria-labelledby="h-template">
+    <h2 id="h-template">Шаблон</h2>
+    <p class="small muted">Немає Telegram? Скопіюйте шаблон і надішліть модератору будь-яким зручним способом.</p>
+    <pre class="template" id="template"></pre>
+    <button class="btn btn-ghost" id="copy-template" type="button">Скопіювати шаблон</button>
+    <p class="feedback" id="copy-feedback" aria-live="polite"></p>
+    <textarea class="copy-box" id="copy-box" readonly aria-label="Шаблон для копіювання" hidden></textarea>
+  </section>
+
+  <section aria-labelledby="h-dont">
+    <h2 id="h-dont">Що не надсилати ніколи</h2>
+    <ul class="plain">
+      <li>Точну адресу, особливо якщо йдеться про літню, самотню людину чи людину з інвалідністю. Досить району чи орієнтира.</li>
+      <li>Документи, паспортні дані, діагнози.</li>
+      <li>Фото чи відео влучань, місця роботи ППО, будь-що про рух військових.</li>
+      <li>Плітки про конкретних людей.</li>
+      <li>Збори коштів — лише після перевірки модератором.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="meta-line page-foot"><span class="sample-banner">Тестові дані</span><button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button></div>
+  <p>Прототип: усе на сайті вигадане для прикладу. Доповнює місцеві чати в Telegram і Viber, а не замінює їх.</p>
+  <p>Без реклами, аналітики й трекерів.</p>
+</div></footer>
+
+<nav class="tabbar" aria-label="Розділи">
+  <a href="index.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-home"/></svg>Зараз</a>
+  <a href="news.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-news"/></svg>Новини</a>
+  <a href="events.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-calendar"/></svg>Події</a>
+  <a href="help.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>Допомога</a>
+  <a href="more.html" aria-current="true"><svg aria-hidden="true"><use href="assets/icons.svg#i-more"/></svg>Ще</a>
+</nav>
+</body>
+</html>

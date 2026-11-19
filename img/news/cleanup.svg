@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 450" role="img" aria-label="Дерева і мішки після толоки (ілюстрація-заглушка)">
+  <rect width="600" height="450" fill="#F2F1EC"/>
+  <path d="M120 330 190 110l70 220z" fill="#719A73"/>
+  <path d="M220 330 300 70l80 260z" fill="#003A35"/>
+  <path d="M350 330 410 150l60 180z" fill="#719A73"/>
+  <rect x="80" y="330" width="440" height="10" fill="#003A35"/>
+  <circle cx="180" cy="380" r="34" fill="#001F27"/>
+  <circle cx="250" cy="388" r="28" fill="#001F27"/>
+  <circle cx="420" cy="384" r="32" fill="#001F27"/>
+  <path d="M172 344h16M244 358h12M412 350h16" stroke="#F5C451" stroke-width="8" stroke-linecap="round"/>
+</svg>

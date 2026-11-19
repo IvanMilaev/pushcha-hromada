@@ -1,0 +1,186 @@
+/* «Дика Пуща» — design lab for the owner's Pinterest board wild-nature (4 pins).
+   What the board shares: national-park / outdoor identity — flat saturated earth colours in pairs,
+   nature pictograms (pine, moon, star, hills and waves), chunky uppercase display type, paper grain.
+   Pushcha-Vodytsia is a pine forest with ponds, so the pine and the waves become the site's own signs.
+   System fonts only (project rule): the chunky display face is approximated with the heaviest system weight.
+   Text contrast was computed: small text only on pairs >= 4.5:1; 3:1 pairs carry large text only. */
+
+:root {
+  /* pin 1 — Wild Life Co. palette */
+  --pine: #196555; --moss: #BEAA30; --maple: #F16A46; --blueberry: #6380C0; --mocha: #3B3735; --cream: #F3EAD3;
+  --bark: #1E1B1A;
+  /* pin 2 — mist */
+  --violet: #B7A3D2; --rose: #A84355; --deep: #141E18; --fern: #B9C2B8;
+  /* pin 3 — colour pairs */
+  --forest: #496A4E; --sand: #E8DDC0; --sky: #6F9FDB; --ink: #0A0D12; --orange: #F07243; --mist: #DAE1EC; --navy: #3F5C82;
+  /* pin 4 — poster */
+  --pnavy: #2E3A7A; --porange: #EE8455; --sun: #F5C451;
+
+  --display: "Arial Black", "Helvetica Neue", Roboto, system-ui, sans-serif;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", "DejaVu Sans Mono", "Roboto Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font-family: var(--font); font-size: 1.0625rem; line-height: 1.45; padding-bottom: calc(150px + env(safe-area-inset-bottom, 0px)); overflow-wrap: break-word; }
+h1, h2, p { margin: 0; }
+svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--sun); outline-offset: 3px; }
+main { display: block; }
+.w-loading { padding: 64px 24px; }
+
+.sample-banner {
+  position: fixed; top: 8px; right: 8px; z-index: 20; padding: 2px 10px; border-radius: 999px;
+  background: rgba(10, 13, 18, 0.72); color: var(--sun); border: 1px solid var(--sun); font-size: 0.75rem; font-weight: 600;
+}
+
+/* ---------- the switcher ---------- */
+.w-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+  display: grid; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--ink); color: var(--sand);
+}
+.w-caption { font-size: 0.8125rem; line-height: 1.35; max-width: 32rem; }
+.w-caption b { color: #FFFFFF; }
+.w-switch { display: flex; gap: 6px; }
+.w-switch button {
+  width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid var(--sand); background: transparent;
+  color: var(--sand); font: inherit; font-weight: 800; cursor: pointer;
+}
+.w-switch button[aria-pressed="true"] { background: var(--sand); color: var(--ink); }
+
+/* =========================================================
+   1 · Значок — national-park badge (pin 1)
+   ========================================================= */
+body.c1 { background: var(--mocha); color: var(--cream); }
+.c1 main > div { max-width: 32rem; margin: 0 auto; padding: 48px 24px 0; }
+.c1-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.c1-brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--display); font-weight: 900; font-size: 1.25rem; text-transform: uppercase; letter-spacing: 0.04em; }
+.c1-pine { width: 28px; height: 28px; color: var(--moss); }
+.c1-time { font-size: 0.8125rem; }
+.c1-h1 { margin: 48px 0 12px; font-family: var(--display); font-weight: 900; font-size: 2.75rem; line-height: 0.95; text-transform: uppercase; }
+.c1-sub { max-width: 26rem; }
+.c1-act {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 48px; margin-top: 24px; padding: 0 18px;
+  border-radius: 10px; background: var(--cream); color: var(--mocha); text-decoration: none;
+  font-family: var(--display); font-weight: 900; font-size: 0.9375rem; text-transform: uppercase; letter-spacing: 0.04em;
+}
+.c1-act svg { width: 18px; height: 18px; stroke-width: 2.6; }
+.c1-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 40px; }
+.c1-tile { display: grid; gap: 2px; align-content: start; min-height: 128px; padding: 16px; border-radius: 14px; }
+.c1-ico { width: 34px; height: 34px; stroke-width: 2.4; margin-bottom: 12px; }
+.c1-name { font-family: var(--display); font-weight: 900; font-size: 1.125rem; text-transform: uppercase; }
+.c1-word { font-size: 0.9375rem; }
+.c1-tile.is-ok { background: var(--pine); color: var(--cream); }
+.c1-tile.is-no { background: var(--maple); color: var(--bark); }
+.c1-tile.is-stale { background: var(--moss); color: var(--mocha); }
+.c1-tile.is-unknown { background: #4A4542; color: var(--cream); }
+.c1-upd { margin-top: 12px; font-size: 0.8125rem; }
+.c1-coffee { display: block; margin-top: 56px; text-decoration: none; }
+.c1-ribbon {
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; padding: 26px 14px 14px;
+  border-radius: 50% 50% 12px 12px / 26px 26px 12px 12px; background: var(--blueberry); color: var(--cream);
+  font-family: var(--display); font-weight: 900; font-size: 1.5rem; line-height: 1; text-transform: uppercase; text-align: center;
+}
+.c1-rp { width: 44px; height: 44px; color: var(--mocha); }
+.c1-when { display: block; margin-top: 12px; text-align: center; }
+.c1-paper { margin-top: 56px; padding: 22px 24px 10px; border-radius: 14px; background: var(--cream); color: var(--mocha); }
+.c1-h2 { font-family: var(--display); font-weight: 900; font-size: 1.125rem; text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 8px; }
+.c1-news { display: grid; gap: 2px; padding: 14px 0; border-top: 1px solid rgba(59, 55, 53, 0.2); text-decoration: none; }
+.c1-date { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; }
+
+/* =========================================================
+   2 · Туман — misty forest (pin 2)
+   ========================================================= */
+body.c2 { background: var(--deep); color: var(--cream); }
+.c2-hero {
+  display: flex; flex-direction: column; min-height: 92vh; min-height: 92svh; padding: 56px 24px 28px;
+  background: var(--violet) url("../img/wild/forest.svg") center bottom / cover no-repeat; color: var(--deep);
+}
+.c2-spread { display: flex; justify-content: space-between; gap: 12px; font-size: 0.9375rem; letter-spacing: 0.02em; }
+.c2-h1 { margin-top: 12vh; font-size: 2.75rem; font-weight: 400; line-height: 1.05; letter-spacing: -0.02em; }
+.c2-zig { width: 132px; height: 132px; margin: auto auto 32px; color: var(--rose); stroke-width: 2.6; }
+.c2-low { color: var(--cream); }
+.c2-low .is-no { color: #F2866D; }
+.c2-low .is-stale { color: var(--sun); }
+.c2-body { max-width: 32rem; margin: 0 auto; padding: 24px 24px 0; }
+.c2-row { display: grid; gap: 4px; padding: 22px 0; border-top: 1px solid rgba(243, 234, 211, 0.14); text-decoration: none; }
+.c2-row:first-child { border-top: 0; }
+.c2-label { font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); }
+.c2-big { font-size: 1.375rem; font-weight: 500; line-height: 1.25; }
+.c2-meta { font-size: 0.9375rem; color: var(--fern); }
+.c2-title { line-height: 1.4; }
+.c2-sec { margin-top: 48px; padding-bottom: 4px; }
+.c2-upd { margin-top: 40px; }
+
+/* =========================================================
+   3 · Пари — colour bands, one job each (pin 3)
+   ========================================================= */
+body.c3 { background: var(--mist); color: var(--navy); }
+.c3-band { padding: 40px 24px; }
+.c3-in { max-width: 32rem; margin: 0 auto; display: grid; gap: 10px; }
+.c3-forest { background: var(--forest); color: var(--sand); padding-top: 56px; padding-bottom: 48px; }
+.c3-orange { background: var(--orange); color: var(--ink); }
+.c3-ink { background: var(--ink); color: var(--sand); }
+.c3-sky { background: var(--sky); color: var(--ink); }
+.c3-mist { background: var(--mist); color: var(--navy); }
+.c3-brand { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.9375rem; }
+.c3-mark { width: 44px; height: 44px; color: var(--sand); }
+.c3-h1 { margin-top: 40px; font-size: 3rem; font-weight: 800; line-height: 1; letter-spacing: -0.03em; }
+.c3-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+.c3-link { display: block; text-decoration: none; }
+.c3-big { display: block; font-size: 1.75rem; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; }
+.c3-meta { display: block; margin-top: 4px; font-size: 0.9375rem; }
+.c3-more { display: block; margin-top: 14px; font-weight: 700; }
+.c3-svc { display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; border-top: 1px solid rgba(111, 159, 219, 0.25); font-size: 1.25rem; font-weight: 600; }
+.c3-svc.is-ok .c3-word { color: var(--sky); }
+.c3-svc.is-no .c3-word { color: var(--orange); }
+.c3-svc.is-stale .c3-word { color: var(--sun); }
+.c3-news { display: grid; gap: 2px; padding: 14px 0; border-top: 1px solid rgba(63, 92, 130, 0.25); text-decoration: none; }
+.c3-date { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; }
+
+/* =========================================================
+   4 · Плакат — grainy paper poster (pin 4)
+   ========================================================= */
+body.c4 { background: var(--pnavy); color: var(--cream); }
+.c4-paper {
+  min-height: 100vh; padding: 56px 24px 40px;
+  background-image:
+    url("../img/wild/grain.svg"),
+    linear-gradient(90deg, transparent 69.7%, rgba(255, 255, 255, 0.09) 70%, transparent 70.3%),
+    linear-gradient(transparent 54.8%, rgba(255, 255, 255, 0.07) 55%, transparent 55.2%);
+  background-size: 240px 240px, 100% 100%, 100% 100%;
+}
+.c4-paper > * { max-width: 32rem; margin-left: auto; margin-right: auto; }
+.c4-mono { font-family: var(--mono); font-size: 0.8125rem; line-height: 1.55; letter-spacing: 0.03em; text-transform: uppercase; }
+.c4-kicker { margin-top: 16px; font-family: var(--display); font-weight: 900; font-size: 1.25rem; text-transform: uppercase; color: var(--porange); }
+.c4-h1 { margin-top: 28px; margin-bottom: 36px; font-family: var(--display); font-weight: 900; font-size: clamp(3.25rem, 18vw, 6.5rem); line-height: 0.92; text-transform: uppercase; color: var(--porange); }
+.c4-board { display: grid; gap: 10px; font-family: var(--mono); font-size: 0.9375rem; text-transform: uppercase; }
+.c4-line { display: flex; align-items: baseline; gap: 8px; }
+.c4-dots { flex: 1; min-width: 16px; border-bottom: 2px dotted rgba(243, 234, 211, 0.45); transform: translateY(-4px); }
+.c4-line.is-no .c4-word { padding: 0 6px; background: var(--porange); color: var(--ink); }
+.c4-line.is-stale .c4-word { color: var(--sun); }
+.c4-act { display: flex; align-items: center; min-height: 48px; margin-top: 28px; font-family: var(--display); font-weight: 900; font-size: 1.5rem; text-transform: uppercase; color: var(--porange); text-decoration: none; }
+.c4-gap { margin-top: 28px; }
+.c4-news { margin-top: 44px; }
+.c4-item { display: grid; gap: 2px; padding: 12px 0; border-top: 1px dashed rgba(243, 234, 211, 0.35); text-decoration: none; }
+
+/* narrow screens and 200% zoom */
+@media (max-width: 22rem) {
+  .c1-grid { grid-template-columns: minmax(0, 1fr); }
+  .c1-h1, .c2-h1, .c3-h1 { font-size: 2rem; }
+  .c1-ribbon { font-size: 1.125rem; }
+  .c1-rp { display: none; }
+  .c1-ribbon { justify-content: center; }
+  .c1-top, .w-switch { flex-wrap: wrap; }
+  .sample-banner { position: static; display: inline-block; margin: 8px 8px 0; }
+  .c1 main > div, .c2-hero, .c4-paper { padding-top: 24px; }
+  .c2-spread { flex-wrap: wrap; }
+  .c4-h1 { font-size: 2.5rem; }
+  .c4-line { flex-wrap: wrap; }
+  .w-caption span { display: none; }
+  .c1-name, .c3-svc, .c4-mono, .c4-line, .c3-big, .c2-big { overflow-wrap: anywhere; }
+}
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }

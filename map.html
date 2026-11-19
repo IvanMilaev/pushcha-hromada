@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'self'; script-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Мапа Пущі — Пуща-громада (прототип)</title>
+<meta name="description" content="Мапа Пущі-Водиці: зустрічі, проблеми, ініціативи й новини там, де вони відбуваються.">
+<meta name="theme-color" content="#3B3735">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+<script src="assets/map.js" defer></script>
+</head>
+<!-- The map of Pushcha-Vodytsia: a pre-built SVG from OpenStreetMap (tools/build-map.py) — no tiles, nothing from
+     other sites; only main streets, tram, water and forest, never utility networks (docs/plan.md §7). On it,
+     markers for meetings, problems, initiatives and news at public landmarks (data/places.json). Never gossip,
+     the help board or a meeting whose address is for participants only. -->
+<body data-page="map">
+<p class="concept-banner">Концепт для партнерів. Усі дані на сайті вигадані.</p>
+
+<main class="wrap">
+  <section class="page-head">
+    <p class="fit-title site-name"><a href="index.html"><span>Пуща-Водиця</span></a></p>
+    <h1 class="page-title">Мапа Пущі</h1>
+    <p class="lead">Зустрічі, проблеми, ініціативи й новини там, де вони відбуваються. Натисніть позначку.</p>
+  </section>
+
+  <section aria-label="Мапа">
+    <div class="map-box" id="map"><p class="caption">Завантаження мапи…</p></div>
+    <!-- what is at the tapped marker (map.js) -->
+    <div class="spot-card" id="spot-card" aria-live="polite" hidden></div>
+    <ul class="map-legend" aria-label="Позначки">
+      <li><span class="chip chip-spot chip-spot-problem"></span>проблема</li>
+      <li><span class="chip chip-spot chip-spot-event"></span>зустріч</li>
+      <li><span class="chip chip-spot chip-spot-initiative"></span>ініціатива</li>
+      <li><span class="chip chip-spot chip-spot-news"></span>новина</li>
+    </ul>
+    <ul class="map-legend" aria-label="Що на мапі">
+      <li><span class="chip chip-forest"></span>ліс</li>
+      <li><span class="chip chip-water"></span>вода</li>
+      <li><span class="chip chip-tram"></span>трамвай</li>
+      <li><span class="chip chip-road"></span>головні дороги</li>
+    </ul>
+    <p class="micro map-credit">Наблизити: кнопки + і −, двома пальцями або Ctrl і коліщатко миші. Наближену мапу можна тягати.</p>
+    <p class="micro map-credit">Дані мапи © <a href="https://www.openstreetmap.org/copyright" rel="noopener noreferrer">учасники OpenStreetMap</a>, ODbL. Лише головні вулиці, трамвай, вода й ліс.</p>
+  </section>
+
+  <section aria-labelledby="h-spots">
+    <h2 id="h-spots">Що на мапі</h2>
+    <p class="lead">Плітки, оголошення про допомогу й зустрічі з адресою для учасників на мапу не потрапляють.</p>
+    <ul class="list" id="spot-list"><li class="muted">Завантаження…</li></ul>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wrap">
+  <div class="meta-line page-foot"><span class="sample-banner">Тестові дані</span><button class="icon-btn" id="theme-btn" type="button" aria-label="Світла тема"><svg aria-hidden="true"><use href="assets/icons.svg#i-theme"/></svg></button></div>
+  <p>Прототип: мапа — концепт.</p>
+  <p>Ми не показуємо і не збираємо, які будинки на якій лінії електромережі, водогону чи газопроводу.</p>
+</div></footer>
+
+<nav class="tabbar" aria-label="Розділи">
+  <a href="index.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-home"/></svg>Зараз</a>
+  <a href="news.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-news"/></svg>Новини</a>
+  <a href="events.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-calendar"/></svg>Події</a>
+  <a href="help.html"><svg aria-hidden="true"><use href="assets/icons.svg#i-heart"/></svg>Допомога</a>
+  <a href="more.html" aria-current="true"><svg aria-hidden="true"><use href="assets/icons.svg#i-more"/></svg>Ще</a>
+</nav>
+</body>
+</html>
