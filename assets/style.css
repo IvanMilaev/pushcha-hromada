@@ -62,7 +62,7 @@
   --tile: #303D37; --on-tile: #F1EED8; --tile-muted: #C1BEAE;
   --tile-no: #FEA28B; --tile-stale: #DDB961; --tile-ok: #8ECFA9;   /* state words on a tile, all >= 4.5:1 */
   --blue: #2F698F;  --on-blue: #F1EED8;               /* lake blue */
-  --mark-tree: #337250; --mark-water: #2F698F;        /* the sign in «Пуща-Водиця»: the needle-green and lake-blue block colours (owner: darker than the light text tones) */
+  --mark-tree: #337250; --mark-water: #8BC6EF;        /* the sign in «Пуща-Водиця» (owner, logo sheet 28): a dark needle-green tree over light lake water */
   /* picture tones (a picture does not change with the theme) */
   --tone-sage: #719A73; --tone-coral: #F2866D; --tone-marine: #1F73C2; --tone-sun: #F5C451; --tone-ever: #003A35; --tone-cream: #E9E6DC;
 
@@ -107,7 +107,7 @@
   --title-2: #715706;
   --tile: #E4E0CB; --on-tile: #222B27; --tile-muted: #55615B;
   --tile-no: #953922; --tile-stale: #715706; --tile-ok: #296948;
-  --mark-tree: #337250; --mark-water: #2F698F;
+  --mark-tree: #337250; --mark-water: #2F698F;        /* on light paper the light water fades, so the water is the deep lake blue here (sheet 26) */
   color-scheme: light;
 }
 
