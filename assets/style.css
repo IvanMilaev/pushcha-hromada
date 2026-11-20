@@ -8,21 +8,21 @@
      the one action is a sand (dark theme) or pine-black (light theme) button; links are lake blue.
    Composition keeps the Zero Design System principles: a type scale with a gap (display caps, body,
    small labels), one left edge, hairlines between list items, space steps 4 · 8 · 14 · 24 · 40 · 72.
-   One typeface, Rubik (owner, 2026-11-19; an exception to "no web fonts", see docs/plan.md §6): Black 900 for
-   display caps, 400–700 for text. Self-hosted in assets/fonts (SIL OFL, OFL.txt beside it), no request to another
-   site; if it cannot load, the system fonts below take over.
+   One typeface, Onest (owner, 2026-11-21, after Rubik; an exception to "no web fonts", see docs/plan.md §6):
+   900 for display caps, 400–700 for text. Self-hosted in assets/fonts (SIL OFL, OFL.txt beside it), no request to
+   another site; if it cannot load, the system fonts below take over.
    Dark (pine-black) by default; light (sand) with the ◐ button. Text pairs are >= 4.5:1 (tools/check-site.mjs). */
 
-/* Rubik is a variable font: one file per alphabet holds every weight. The browser loads only the alphabets
-   a page uses (unicode-range): Ukrainian pages need both. */
+/* Onest is a variable font (weights 400–900): one file per alphabet holds every weight. The browser loads only
+   the alphabets a page uses (unicode-range): Ukrainian pages need both. */
 @font-face {
-  font-family: "Rubik"; font-style: normal; font-weight: 300 900; font-display: swap;
-  src: url("fonts/rubik-cyrillic.woff2") format("woff2");
+  font-family: "Onest"; font-style: normal; font-weight: 400 900; font-display: swap;
+  src: url("fonts/onest-cyrillic.woff2") format("woff2");
   unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
 }
 @font-face {
-  font-family: "Rubik"; font-style: normal; font-weight: 300 900; font-display: swap;
-  src: url("fonts/rubik-latin.woff2") format("woff2");
+  font-family: "Onest"; font-style: normal; font-weight: 400 900; font-display: swap;
+  src: url("fonts/onest-latin.woff2") format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
@@ -66,9 +66,9 @@
   /* picture tones (a picture does not change with the theme) */
   --tone-sage: #719A73; --tone-coral: #F2866D; --tone-marine: #1F73C2; --tone-sun: #F5C451; --tone-ever: #003A35; --tone-cream: #E9E6DC;
 
-  --display: "Rubik", "Arial Black", "Helvetica Neue", Roboto, system-ui, sans-serif;
-  /* Rubik first; if it cannot load, each phone's own good UI font. system-ui comes late: on Linux it is often DejaVu Sans. */
-  --font: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, "Helvetica Neue", Arial, system-ui, sans-serif;
+  --display: "Onest", "Arial Black", "Helvetica Neue", Roboto, system-ui, sans-serif;
+  /* Onest first; if it cannot load, each phone's own good UI font. system-ui comes late: on Linux it is often DejaVu Sans. */
+  --font: "Onest", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, "Helvetica Neue", Arial, system-ui, sans-serif;
   --hair: 4px; --tight: 8px; --snug: 14px; --base: 24px; --wide: 40px; --section: 72px;
   --r-s: 10px; --r-m: 14px; --r-pill: 999px;
   /* Type: a fixed set, nothing in between (owner, 2026-11-20; research/web-typography). Four sizes plus the
@@ -148,7 +148,7 @@ h3 { font-size: var(--fs-m); font-weight: var(--fw-bold); line-height: var(--lh-
 .fit-title span { display: inline-block; }
 /* The sign in place of the hyphen (owner, 2026-11-20; logo sheet, variant 21): a tree over water. The real hyphen
    stays in the text, hidden, so a screen reader and a copy say «Пуща-Водиця». */
-.fit-title .mark { width: 0.8em; height: 0.8em; margin: 0 0.07em; vertical-align: -0.04em; stroke: none; }
+.fit-title .mark { width: 0.8em; height: 0.8em; margin: 0 0.07em; vertical-align: -0.04em; stroke: none; overflow: visible; }   /* the water's curve touches the box's bottom edge: a fractional pixel clip flattened it */
 .mark-tree { fill: var(--mark-tree); }      /* inline in each page: a fill through <use> from icons.svg cannot read these colours */
 .mark-water { fill: var(--mark-water); }
 .vh { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }

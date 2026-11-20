@@ -3,7 +3,7 @@
    Bump CACHE_VERSION whenever a page, style.css or app.js changes. */
 'use strict';
 
-var CACHE_VERSION = 'ph-v56';
+var CACHE_VERSION = 'ph-v57';
 var PRECACHE = [
   './',
   'index.html',
@@ -19,8 +19,8 @@ var PRECACHE = [
   'assets/map.js',
   'assets/map.svg',
   'assets/style.css',
-  'assets/fonts/rubik-cyrillic.woff2',
-  'assets/fonts/rubik-latin.woff2',
+  'assets/fonts/onest-cyrillic.woff2',
+  'assets/fonts/onest-latin.woff2',
   'assets/app.js',
   'assets/home.js',
   'assets/icons.svg',
