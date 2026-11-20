@@ -461,11 +461,20 @@ pre.template {
 .bt-box.bt-wide { grid-column: 1 / -1; }
 .bt-box > .bt { height: 100%; }
 .bt-box > .bt .bt-kind { padding-right: 44px; overflow-wrap: normal; }   /* wrap between words, never inside one */
+/* The tap area stays 44×44 but is invisible; the circle you see is 30 px, centred on the label's line and ending
+   at the tile's text edge, so it never hangs over a picture below the label (owner, 2026-11-20).
+   top = tile padding + half the label line (15 px × 1.25) − half the tap area (22 px). */
 .bt-map {
-  position: absolute; top: 4px; right: 4px; display: grid; place-items: center; width: 44px; height: 44px;
-  border-radius: var(--r-pill); color: var(--on-tile); background: rgba(0, 0, 0, 0.14);
+  position: absolute; top: calc(var(--snug) + 9.4px - 22px); right: 6px; display: grid; place-items: center; width: 44px; height: 44px;
+  border-radius: var(--r-pill); color: var(--on-tile);
+  background: radial-gradient(circle, rgba(0, 0, 0, 0.16) 13.5px, transparent 14px);
 }
-.bt-map svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 22rem) { .bt-map { top: calc(12px + 9.4px - 22px); right: 4px; } }   /* the tile padding is 12 px there */
+/* A picture under the label: the label band gets as much room below as above (the tile padding), so the map
+   circle sits in the middle of the band, clear of the picture (owner: it touched the picture's edge). */
+.bt > .bt-kind + .bt-pic { margin-top: calc(var(--snug) - var(--tight)); }
+@media (max-width: 22rem) { .bt > .bt-kind + .bt-pic { margin-top: calc(12px - var(--tight)); } }
+.bt-map svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .bt-box > .bt-wide.bt-news ~ .bt-map { color: var(--on-pine); }
 .bt-box > .bt-wide.bt-initiative ~ .bt-map { color: var(--on-blue); }
 .bt-box > .bt-coffee ~ .bt-map { color: var(--on-moss); }
