@@ -863,7 +863,7 @@
     if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light');
     else document.documentElement.removeAttribute('data-theme');
     var meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', theme === 'light' ? '#F3EAD3' : '#3B3735');
+    if (meta) meta.setAttribute('content', theme === 'light' ? '#F3F1E0' : '#232E29');
   }
 
   // The ◐ button in the top line of every page (#theme-btn). The label names the theme it switches to.

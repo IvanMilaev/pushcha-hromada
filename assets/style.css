@@ -3,15 +3,15 @@
    flat colour blocks, a pine as the sign, chunky uppercase display type, a cream "paper" panel.
    Pushcha-Vodytsia is a pine forest with ponds, so the pine is the site's own mark.
 
-   Colour carries meaning, never decoration:
-     pine block = works · maple block = missing · moss block = not verified · grey block = unknown;
-     the one action is a cream (dark theme) or mocha (light theme) button; links are blueberry.
+   Colour carries meaning, never decoration (palette «Бор», 2026-11-20):
+     green block = works · brick block = missing · ochre block = not verified · grey block = unknown;
+     the one action is a sand (dark theme) or pine-black (light theme) button; links are lake blue.
    Composition keeps the Zero Design System principles: a type scale with a gap (display caps, body,
    small labels), one left edge, hairlines between list items, space steps 4 · 8 · 14 · 24 · 40 · 72.
    One typeface, Rubik (owner, 2026-11-19; an exception to "no web fonts", see docs/plan.md §6): Black 900 for
    display caps, 400–700 for text. Self-hosted in assets/fonts (SIL OFL, OFL.txt beside it), no request to another
    site; if it cannot load, the system fonts below take over.
-   Dark (mocha) by default; light (cream) with the ◐ button. Text pairs are >= 4.5:1 (tools/check-site.mjs). */
+   Dark (pine-black) by default; light (sand) with the ◐ button. Text pairs are >= 4.5:1 (tools/check-site.mjs). */
 
 /* Rubik is a variable font: one file per alphabet holds every weight. The browser loads only the alphabets
    a page uses (unicode-range): Ukrainian pages need both. */
@@ -27,37 +27,41 @@
 }
 
 :root {
+  /* Palette «Бор» (owner, 2026-11-20; chosen from ten on the palette sheet). Built in OKLCH: the four colour blocks
+     share one lightness and chroma band, so none shouts louder than another; the ground carries a trace of pine.
+     Every text colour was pushed until it clears 4.6:1 on every ground it sits on (tools/check-site.mjs checks 4.5). */
   /* ground and text */
-  --bg: #3B3735;          /* Bear Claw Mocha */
-  --surface: #46413E;
-  --text: #F3EAD3;        /* cream */
-  --muted: #C9BFA8;
-  --rule: #5A534F;
-  --link: #A9BDEB;        /* Wild Blueberry, lightened for text */
-  /* the cream paper panel (inverted in the light theme) */
-  --paper: #F3EAD3;
-  --on-paper: #3B3735;
-  --paper-muted: #675F57;
-  --paper-rule: #D6CBB0;
-  --paper-link: #3A5A9E;
+  --bg: #232E29;          /* pine-black forest floor */
+  --surface: #2D3833;
+  --text: #F1EED8;        /* sand-cream */
+  --muted: #C1BEAE;
+  --rule: #44504B;
+  --link: #8BC6EF;        /* lake blue, lightened for text */
+  /* the former paper panel (no longer shown; kept valid): the light theme's ground and words */
+  --paper: #F3F1E0;
+  --on-paper: #222B27;
+  --paper-muted: #55615B;
+  --paper-rule: #D1CFBB;
+  --paper-link: #266186;
   /* state words on the ground and on paper */
-  --ok-text: #8CC7A6;
-  --no-text: #F59A80;
-  --stale-text: #BEAA30;
-  --paper-ok: #196555;
-  --paper-no: #B23E20;
-  --paper-stale: #6E6000;
-  /* blocks: the same in both themes */
-  --pine: #196555;  --on-pine: #F3EAD3;    /* Eastern White Pine */
-  --maple: #F16A46; --on-maple: #1E1B1A;   /* Maple Leaf */
-  --moss: #BEAA30;  --on-moss: #3B3735;    /* Rock Moss */
-  --grey: #57514D;  --on-grey: #F3EAD3;
-  --blueberry: #6380C0;
-  /* home tiles: one neutral tone between the ground and the grey block */
-  --title-2: #BEAA30;                                  /* a page's name under «Пуща-Водиця» (moss) */
-  --tile: #4A4542; --on-tile: #F3EAD3; --tile-muted: #C9BFA8;
-  --tile-no: #F7A68E; --tile-stale: #D4C04A; --tile-ok: #8CC7A6;   /* state words on a tile, all >= 4.5:1 */
-  --blue: #4462A8;  --on-blue: #F3EAD3;               /* Wild Blueberry, a step darker so cream text passes 4.5:1 */
+  --ok-text: #8ECFA9;
+  --no-text: #FEA28B;
+  --stale-text: #DDB961;
+  --paper-ok: #296948;
+  --paper-no: #953922;
+  --paper-stale: #715706;
+  /* blocks: the same in both themes (the names stay from the first palette: pine = works, maple = missing,
+     moss = not verified, blue = initiative) */
+  --pine: #337250;  --on-pine: #F1EED8;    /* needle green */
+  --maple: #A94B34; --on-maple: #F1EED8;   /* brick */
+  --moss: #D6B35A;  --on-moss: #222B27;    /* ochre */
+  --grey: #485A51;  --on-grey: #F1EED8;
+  --blueberry: #2F698F;
+  /* home tiles: one neutral tone a step above the ground */
+  --title-2: #DDB961;                                  /* a page's name under «Пуща-Водиця» (ochre) */
+  --tile: #303D37; --on-tile: #F1EED8; --tile-muted: #C1BEAE;
+  --tile-no: #FEA28B; --tile-stale: #DDB961; --tile-ok: #8ECFA9;   /* state words on a tile, all >= 4.5:1 */
+  --blue: #2F698F;  --on-blue: #F1EED8;               /* lake blue */
   /* picture tones (a picture does not change with the theme) */
   --tone-sage: #719A73; --tone-coral: #F2866D; --tone-marine: #1F73C2; --tone-sun: #F5C451; --tone-ever: #003A35; --tone-cream: #E9E6DC;
 
@@ -82,26 +86,26 @@
 }
 
 :root[data-theme="light"] {
-  --bg: #F3EAD3;
-  --surface: #E9DEC2;
-  --text: #3B3735;
-  --muted: #675F57;
-  --rule: #D6CBB0;
-  --link: #3A5A9E;
-  --paper: #3B3735;
-  --on-paper: #F3EAD3;
-  --paper-muted: #C9BFA8;
-  --paper-rule: #5A534F;
-  --paper-link: #A9BDEB;
-  --ok-text: #196555;
-  --no-text: #B23E20;
-  --stale-text: #6E6000;
-  --paper-ok: #8CC7A6;
-  --paper-no: #F59A80;
-  --paper-stale: #BEAA30;
-  --title-2: #6E6000;
-  --tile: #E9DEC2; --on-tile: #3B3735; --tile-muted: #675F57;
-  --tile-no: #A8391C; --tile-stale: #6E6000; --tile-ok: #196555;
+  --bg: #F3F1E0;          /* sand paper */
+  --surface: #E7E4D0;
+  --text: #222B27;
+  --muted: #55615B;
+  --rule: #D1CFBB;
+  --link: #266186;
+  --paper: #232E29;
+  --on-paper: #F1EED8;
+  --paper-muted: #C1BEAE;
+  --paper-rule: #44504B;
+  --paper-link: #8BC6EF;
+  --ok-text: #296948;
+  --no-text: #953922;
+  --stale-text: #715706;
+  --paper-ok: #8ECFA9;
+  --paper-no: #FEA28B;
+  --paper-stale: #DDB961;
+  --title-2: #715706;
+  --tile: #E4E0CB; --on-tile: #222B27; --tile-muted: #55615B;
+  --tile-no: #953922; --tile-stale: #715706; --tile-ok: #296948;
   color-scheme: light;
 }
 
@@ -363,8 +367,9 @@ pre.template {
    No frame: the map lies on the page colour and ends at an uneven, sharp edge (no fading).
    Forest = loose patches of small green dots; water bright blue; main roads thick, the tram thick and dashed; long named
    streets hairlines. Three zones of the grid, seen only under the mouse: no names drawn, no status. */
-:root { --map-dot: #6F9E7B; --map-tree: #8CC7A6; --map-water: #7EA6F2; --map-road: #6F685F; --map-street: #8A8174; --map-ink: #F3EAD3; --map-label: #C9BFA8; }
-:root[data-theme="light"] { --map-dot: #7FAE8C; --map-tree: #3F8A66; --map-water: #3F7FE6; --map-road: #CDBF9F; --map-street: #B3A68A; --map-ink: #3B3735; --map-label: #675F57; }
+/* «Бор»: water in the lake blue, streets in sand, the forest a lighter needle green than the ground */
+:root { --map-dot: #6F9E7B; --map-tree: #8ECFA9; --map-water: #6FB0E8; --map-road: #55635B; --map-street: #9A9682; --map-ink: #F1EED8; --map-label: #C1BEAE; }
+:root[data-theme="light"] { --map-dot: #7FAE8C; --map-tree: #2F7A55; --map-water: #2F7FC4; --map-road: #CFCBB2; --map-street: #B0AA8E; --map-ink: #222B27; --map-label: #55615B; }
 .map-box { position: relative; margin: 0 calc(-1 * var(--base)); }       /* bleeds to the screen edges */
 /* zoom (map.js): + / − / whole map in the top-right corner (the north arrow has the top-left one).
    At rest one finger scrolls the page; zoomed in, one finger or the mouse drags the map. */
