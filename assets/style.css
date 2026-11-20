@@ -66,10 +66,17 @@
   --font: "Rubik", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Ubuntu, "Helvetica Neue", Arial, system-ui, sans-serif;
   --hair: 4px; --tight: 8px; --snug: 14px; --base: 24px; --wide: 40px; --section: 72px;
   --r-s: 10px; --r-m: 14px; --r-pill: 999px;
-  --h1: 2.5rem;          /* page titles, display caps */
-  --body: 1.0625rem;     /* 17px */
-  --small: 0.9375rem;    /* 15px */
-  --micro: 0.75rem;      /* 12px labels */
+  /* Type: a fixed set, nothing in between (owner, 2026-11-20; research/web-typography). Four sizes plus the
+     fit-width «Пуща-Водиця»; three weights; three line heights; no letter-spacing. tools/check-site.mjs refuses
+     any other value, so a new style cannot creep in unnoticed. The map's drawn labels (.map-svg) are exempt
+     from the sizes: they scale with the map. */
+  --fs-s: 0.9375rem;     /* 15px  labels and meta: one line, muted colour (owner chose 15 over 14 for older eyes) */
+  --fs-m: 1.0625rem;     /* 17px  all running text, item and tile titles */
+  --fs-l: 1.375rem;      /* 22px  section headings, wide-tile and lead titles, the big word on a small tile */
+  --fs-xl: 1.75rem;      /* 28px  the page's name, the big word on a wide tile */
+  --fw-text: 400; --fw-bold: 700; --fw-black: 900;     /* 900 only with uppercase display words */
+  --lh-text: 1.5; --lh-head: 1.25; --lh-caps: 0.92;
+  --body: var(--fs-m); --small: var(--fs-s);          /* old names, still used by the design lab (variants.css) */
   --measure: 32rem;
   color-scheme: dark;
 }
@@ -102,7 +109,7 @@
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 body {
   margin: 0; background: var(--bg); color: var(--text);
-  font-family: var(--font); font-size: var(--body); line-height: 1.5;
+  font-family: var(--font); font-size: var(--fs-m); font-weight: var(--fw-text); line-height: var(--lh-text);
   padding: 0 var(--base) calc(88px + env(safe-area-inset-bottom, 0px));
   overflow-wrap: break-word;
 }
@@ -117,30 +124,31 @@ section { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--snug)
 section + section { padding-top: calc(var(--section) - var(--wide)); }
 h1, h2, h3, p { margin: 0; }
 
-/* display caps: page titles and section names */
-h1, h2, .display { font-family: var(--display); font-weight: 900; text-transform: uppercase; }
-h1 { font-size: var(--h1); line-height: 0.95; text-wrap: balance; }
-h2 { font-size: 1.125rem; line-height: 1.2; letter-spacing: 0.03em; }
-h3 { font-size: var(--body); font-weight: 700; line-height: 1.4; }
-.micro { font-size: var(--micro); font-weight: 700; line-height: 1.4; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-variant-numeric: tabular-nums; }
+/* Uppercase only for short display words: «Пуща-Водиця», the page's name, the big word on a tile.
+   Section headings, labels and buttons are in sentence case; colour, not another weight, ranks them. */
+h1, .display { font-family: var(--display); font-weight: var(--fw-black); text-transform: uppercase; }
+h1 { font-size: var(--fs-xl); line-height: var(--lh-caps); text-wrap: balance; }
+h2 { font-size: var(--fs-l); font-weight: var(--fw-bold); line-height: var(--lh-head); text-wrap: balance; }
+h3 { font-size: var(--fs-m); font-weight: var(--fw-bold); line-height: var(--lh-head); }
+.micro { font-size: var(--fs-s); color: var(--muted); font-variant-numeric: tabular-nums; }
 .lead, .muted { color: var(--muted); }
-.small { font-size: var(--small); }
-.caption { font-size: var(--small); color: var(--muted); font-variant-numeric: tabular-nums; }
+.small { font-size: var(--fs-s); }
+.caption { font-size: var(--fs-s); color: var(--muted); font-variant-numeric: tabular-nums; }
 .nowrap { white-space: nowrap; }
 .page-head { gap: var(--snug); container-type: inline-size; }
 /* Every page title runs exactly the width of the content (owner, 2026-11-19): app.js (fitTitles) measures it and
    sets the size, up to 96px for a short word; before that, or without JS, a close guess from the column width. */
-.fit-title { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: 11.5cqi; line-height: 0.9; white-space: nowrap; text-wrap: nowrap; }
+.fit-title { font-family: var(--display); font-weight: var(--fw-black); text-transform: uppercase; font-size: 11.5cqi; line-height: var(--lh-caps); white-space: nowrap; text-wrap: nowrap; }
 .fit-title span { display: inline-block; }
 /* «Пуща-Водиця» on every page (owner, 2026-11-19); on the inner pages it is the way home (no header any more).
    The page's own name sits under it: smaller, in moss — the colour the pine sign had in the old header. */
 .site-name a { color: var(--text); text-decoration: none; }
-.page-title { font-size: 1.75rem; line-height: 1.05; color: var(--title-2); text-wrap: balance; }
+.page-title { font-size: var(--fs-xl); color: var(--title-2); }
 .site-name + .page-title { margin-top: calc(var(--tight) - var(--snug)); }
 /* Published for partners (owner, 2026-11-19): a band on top of every page says it is a concept with made-up data,
    so a neighbour who finds the link does not take «Немає води» for real. */
 .concept-banner { margin: 0 calc(-1 * var(--base)); padding: var(--tight) var(--snug); background: var(--moss); color: var(--on-moss);
-  font-size: var(--small); font-weight: 700; text-align: center; }
+  font-size: var(--fs-s); font-weight: var(--fw-bold); text-align: center; }
 /* No header on any page (owner): the sample label and the theme button sit at the foot, above the small print. */
 .page-foot { margin-top: var(--base); }
 .site-footer .page-foot { margin: 0 0 var(--snug); }
@@ -150,13 +158,13 @@ h3 { font-size: var(--body); font-weight: 700; line-height: 1.4; }
 .top .caption { display: flex; flex-wrap: wrap; align-items: center; gap: var(--tight) var(--snug); color: var(--muted); }
 .brand {
   display: inline-flex; align-items: center; gap: var(--tight); min-height: 44px;
-  font-family: var(--display); font-weight: 900; font-size: 1.25rem; letter-spacing: 0.04em; text-transform: uppercase;
+  font-family: var(--display); font-weight: var(--fw-black); font-size: var(--fs-l); text-transform: uppercase;
   color: var(--text); text-decoration: none;
 }
 .brand svg { width: 28px; height: 28px; color: var(--stale-text); }
 .sample-banner {
   display: inline-block; padding: 1px var(--tight); border-radius: var(--r-pill);
-  border: 1px solid var(--stale-text); color: var(--stale-text); font-size: var(--micro); font-weight: 700;
+  border: 1px solid var(--stale-text); color: var(--stale-text); font-size: var(--fs-s); font-weight: var(--fw-bold);
 }
 .icon-btn {
   flex: none; display: inline-grid; place-items: center; width: 44px; height: 44px; border-radius: var(--r-pill);
@@ -171,10 +179,10 @@ h3 { font-size: var(--body); font-weight: 700; line-height: 1.4; }
 }
 .tabbar a {
   display: grid; justify-items: center; gap: 2px; min-width: 56px; min-height: 52px; padding-top: var(--hair);
-  color: var(--muted); text-decoration: none; font-size: var(--micro);
+  color: var(--muted); text-decoration: none; font-size: var(--fs-s); line-height: var(--lh-head);
 }
-.tabbar a[aria-current] { color: var(--text); font-weight: 700; }
-.site-footer { padding: var(--section) 0 var(--base); font-size: var(--small); color: var(--muted); }
+.tabbar a[aria-current] { color: var(--text); font-weight: var(--fw-bold); }
+.site-footer { padding: var(--section) 0 var(--base); font-size: var(--fs-s); color: var(--muted); }
 .site-footer .wrap { display: grid; gap: var(--hair); }
 
 /* ---------- actions ---------- */
@@ -183,34 +191,34 @@ h3 { font-size: var(--body); font-weight: 700; line-height: 1.4; }
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; justify-self: start;
   min-height: 48px; padding: 0 18px; border: 2px solid var(--text); border-radius: var(--r-s);
   background: var(--text); color: var(--bg); text-decoration: none; cursor: pointer;
-  font-family: var(--display); font-weight: 900; font-size: var(--small); letter-spacing: 0.04em; text-transform: uppercase;
+  font-weight: var(--fw-bold); font-size: var(--fs-m); line-height: var(--lh-head); text-align: center;
 }
 .btn svg { width: 18px; height: 18px; stroke-width: 2.6; }
 .btn-ghost { background: transparent; color: var(--text); }
 .btn-small, .ghost {
   display: inline-flex; align-items: center; gap: 6px; justify-self: start;
   min-height: 44px; padding: 0; border: 0; background: transparent;
-  color: var(--link); font: inherit; font-size: var(--small); text-decoration: none; cursor: pointer;
+  color: var(--link); font: inherit; font-size: var(--fs-s); text-decoration: none; cursor: pointer;
 }
 .btn-small svg, .ghost svg { width: 18px; height: 18px; }
 .actions, .btn-row { display: flex; flex-wrap: wrap; gap: 0 var(--base); }
 
-.feedback { font-size: var(--small); color: var(--ok-text); }
+.feedback { font-size: var(--fs-s); color: var(--ok-text); }
 .feedback:empty { display: none; }
 .copy-box {
   width: 100%; min-height: 10rem; padding: var(--snug); border-radius: var(--r-s);
-  border: 1px solid var(--rule); background: var(--surface); color: var(--text); font: inherit; font-size: var(--small);
+  border: 1px solid var(--rule); background: var(--surface); color: var(--text); font: inherit; font-size: var(--fs-s);
 }
 .jump { display: flex; flex-wrap: wrap; gap: 0 var(--base); margin: 0; padding: 0; list-style: none; }
-.jump a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--small); text-decoration: none; }
+.jump a { display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-s); text-decoration: none; }
 
-.notice { padding-left: var(--snug); border-left: 3px solid var(--stale-text); font-size: var(--small); }
-.verify { color: var(--stale-text); font-size: var(--micro); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+.notice { padding-left: var(--snug); border-left: 3px solid var(--stale-text); font-size: var(--fs-s); }
+.verify { color: var(--stale-text); font-size: var(--fs-s); font-weight: var(--fw-bold); }
 .is-target { outline: 2px solid var(--link); outline-offset: 6px; border-radius: var(--r-s); }
 section > a:not([class]) { display: inline-flex; align-items: center; min-height: 44px; justify-self: start; }
-.card-meta { font-size: var(--small); color: var(--muted); }
+.card-meta { font-size: var(--fs-s); color: var(--muted); }
 .card-meta a { display: inline-block; padding: 2px 0; }
-.tag { font-size: var(--micro); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.tag { font-size: var(--fs-s); color: var(--muted); }
 
 /* ---------- the former cream paper panel: now plain, like everything else (owner, 2026-11-19: one look;
    colour only where it means something). The class stays on status.html and news.html as a hook. ---------- */
@@ -234,18 +242,18 @@ section > a:not([class]) { display: inline-flex; align-items: center; min-height
 /* the regular coffee meeting in moss, as on the home page */
 .list > li.is-coffee { background: var(--moss); --text: var(--on-moss); --muted: var(--on-moss); --link: var(--on-moss); color: var(--on-moss); }
 .list > li.is-coffee a { text-decoration: underline; }
-.item-title { display: block; font-size: var(--body); font-weight: 500; line-height: 1.4; color: var(--text); }
+.item-title { display: block; font-size: var(--fs-m); font-weight: var(--fw-bold); line-height: var(--lh-head); color: var(--text); }
 .item.is-past .item-title { color: var(--muted); }
 .item summary { display: grid; gap: 6px; position: relative; padding-right: var(--wide); min-height: 44px; list-style: none; cursor: pointer; }
 .item summary::-webkit-details-marker { display: none; }
 .item summary::after {
   content: "+"; position: absolute; right: 0; top: 50%; transform: translateY(-50%);
-  font-size: 1.375rem; font-weight: 300; line-height: 1; color: var(--muted);
+  font-size: var(--fs-l); line-height: 1; color: var(--muted);   /* a sign, not text: line-height 1 centres it */
 }
 .item details[open] > summary::after { content: "–"; }
 .item-body { display: grid; gap: var(--tight); justify-items: start; padding-top: var(--snug); max-width: 65ch; }
 .item-body > * { max-width: 100%; }
-.item-body .meta, .item-body .alarm { font-size: var(--small); color: var(--muted); }
+.item-body .meta, .item-body .alarm { font-size: var(--fs-s); color: var(--muted); }
 .alarm { padding-left: var(--snug); border-left: 3px solid var(--stale-text); }
 .item-body .actions { padding-top: var(--hair); }
 .pr-0 { color: var(--no-text); }      /* problem: new */
@@ -257,10 +265,10 @@ section > a:not([class]) { display: inline-flex; align-items: center; min-height
 .row { display: grid; gap: 6px; min-height: 44px; color: var(--text); text-decoration: none; }
 
 .steps, .plain { margin: 0; padding-left: 1.4rem; display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--tight); }
-.steps li::marker { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: 700; }
+.steps li::marker { color: var(--muted); font-variant-numeric: tabular-nums; font-weight: var(--fw-bold); }
 pre.template {
   margin: 0; padding: var(--snug) var(--base); background: var(--surface); border-radius: var(--r-s);
-  white-space: pre-wrap; font: inherit; font-size: var(--small);
+  white-space: pre-wrap; font: inherit; font-size: var(--fs-s);
 }
 
 /* news pictures and their weak-connection stand-ins */
@@ -275,15 +283,16 @@ pre.template {
 .lead-news summary { padding-right: 0; gap: var(--tight); grid-template-columns: minmax(0, 1fr); }   /* the bled picture must not widen the column */
 .lead-news summary::after { top: auto; bottom: 0; transform: none; }
 .lead-pic { aspect-ratio: 16 / 10; margin-bottom: var(--tight); }
-.pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--micro); color: var(--muted); }
-.lead-title { font-size: 1.5rem; font-weight: 800; line-height: 1.2; letter-spacing: -0.01em; color: var(--text); }
+.pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--fs-s); color: var(--muted); }
+.lead-title { font-size: var(--fs-l); font-weight: var(--fw-bold); line-height: var(--lh-head); color: var(--text); }
 .lead-ex { color: var(--muted); padding-right: var(--wide); }
 .lead-news details[open] .lead-ex { display: none; }
 
 /* ---------- home: a board of tiles (owner, 2026-11-19; the brand sheet on board wild-nature) ----------
    One neutral tone for all tiles (owner: too many colours); the kind is named in the small label. The only
    accent is a wide maple tile at the top when a service is missing — colour carries meaning, as everywhere.
-   Inside a tile: a small caps label, an optional big display word, a title, one meta line at the bottom. */
+   Inside a tile: a quiet label (sentence case, muted; a state word in colour), an optional big display word in caps,
+   a title, one meta line at the bottom. */
 .home { gap: var(--base); }
 .home section + section { padding-top: 0; }
 .bento { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-flow: dense; gap: var(--base) var(--snug); }   /* rows 24, columns 14 (owner) */
@@ -292,16 +301,19 @@ pre.template {
   min-height: 10.5rem; padding: var(--snug); border-radius: var(--r-s); text-decoration: none; overflow-wrap: anywhere;
 }
 .bt-wide { grid-column: 1 / -1; min-height: 0; }
-.bt-kind { font-size: var(--micro); font-weight: 800; line-height: 1.3; letter-spacing: 0.08em; text-transform: uppercase; }
-.bt-big { font-family: var(--display); font-weight: 900; font-size: 1.375rem; line-height: 1; text-transform: uppercase; overflow-wrap: normal; }
-.bt-wide .bt-big { font-size: 2.25rem; }
-.bt-title { font-weight: 800; line-height: 1.25; }
-.bt-wide .bt-title { font-size: 1.375rem; letter-spacing: -0.01em; }
-.bt-text { font-size: var(--small); line-height: 1.4; }
-.bt-meta { margin-top: auto; font-size: var(--small); font-weight: 600; line-height: 1.35; }
+.bt-kind { font-size: var(--fs-s); line-height: var(--lh-head); }
+.bt-kind .bt-st-no, .bt-kind .bt-st-stale { font-weight: var(--fw-bold); }
+/* The big word is one word and cannot wrap: on a phone 320 px wide a small tile is too narrow for «КАЖУТЬ…» at 22 px,
+   so there (and only there) it shrinks to fit its tile, like the title. Never larger than its step. */
+.bt { container-type: inline-size; }
+.bt-big { font-family: var(--display); font-weight: var(--fw-black); font-size: min(var(--fs-l), 17.6cqi); line-height: var(--lh-caps); text-transform: uppercase; overflow-wrap: normal; }
+.bt-wide .bt-big, .bt-add .bt-big { font-size: var(--fs-xl); }
+.bt-title { font-weight: var(--fw-bold); line-height: var(--lh-head); }
+.bt-wide .bt-title { font-size: var(--fs-l); }
+.bt-meta { margin-top: auto; font-size: var(--fs-s); font-weight: var(--fw-bold); line-height: var(--lh-head); }
 .bt-pic { display: block; width: calc(100% + 2 * var(--snug)); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
   margin: 0 calc(-1 * var(--snug)); background: var(--surface); }
-.bt-pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--micro); line-height: 1.3; }   /* "Фото: згенероване зображення…" */
+.bt-pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--fs-s); line-height: var(--lh-head); }   /* "Фото: згенероване зображення…" */
 .bt-mark { position: absolute; right: -10px; bottom: -8px; width: 84px; height: 84px; opacity: 0.22; pointer-events: none; }
 .bt-mark ~ .bt-meta, .bt-coffee .bt-title { padding-right: 52px; }
 /* Colour by importance, not by kind (owner: one colour per kind was too much, all neutral too flat):
@@ -319,14 +331,13 @@ pre.template {
 .bt-wide .bt-kind, .bt-alarm .bt-kind, .bt-coffee .bt-kind { color: inherit; }
 .bt-add { background: transparent; border: 2px dashed var(--rule); color: var(--text); }
 .bt-add .bt-kind { color: var(--muted); }
-.bt-add .bt-big { font-size: 2.5rem; }
 .bt:hover { filter: brightness(1.06); }
 .bt:active { transform: translateY(1px); }
 @media (prefers-reduced-motion: reduce) { .bt:active { transform: none; } }
 @media (max-width: 15rem) { .bento { grid-template-columns: minmax(0, 1fr); } }
 
 .meta-line { display: flex; align-items: center; justify-content: space-between; gap: var(--snug); margin-top: var(--snug); }
-.more { display: inline-flex; align-items: center; justify-content: flex-end; min-width: 44px; min-height: 44px; font-size: var(--small); text-decoration: none; }
+.more { display: inline-flex; align-items: center; justify-content: flex-end; min-width: 44px; min-height: 44px; font-size: var(--fs-s); text-decoration: none; }
 
 /* ---------- status page: one colour block per service ---------- */
 .tiles { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; margin: 0; padding: 0; list-style: none; }
@@ -334,13 +345,13 @@ pre.template {
   display: grid; grid-template-columns: auto minmax(0, 1fr); column-gap: var(--snug); row-gap: 4px; align-items: baseline;
   padding: var(--snug); border-radius: var(--r-s); background: var(--grey); color: var(--on-grey);
 }
-.tile-name { font-family: var(--display); font-weight: 900; text-transform: uppercase; }
-.tile-state { font-weight: 700; text-align: right; white-space: nowrap; }
-.tile-meta, .tile-note { grid-column: 1 / -1; font-size: var(--small); }
+.tile-name { font-size: var(--fs-l); font-weight: var(--fw-bold); line-height: var(--lh-head); }
+.tile-state { font-weight: var(--fw-bold); text-align: right; white-space: nowrap; }
+.tile-meta, .tile-note { grid-column: 1 / -1; font-size: var(--fs-s); }
 .st-yes { background: var(--pine); color: var(--on-pine); }
 .st-no { background: var(--maple); color: var(--on-maple); }
 .st-stale { background: var(--moss); color: var(--on-moss); }
-.status-meta { font-size: var(--small); color: var(--muted); }
+.status-meta { font-size: var(--fs-s); color: var(--muted); }
 #event { display: grid; gap: var(--tight); }
 
 /* ---------- add ---------- */
@@ -386,19 +397,18 @@ pre.template {
 .map-svg .m-river { stroke: var(--map-water); stroke-width: calc(3.2px * var(--mz, 1)); }
 .map-svg .m-water { fill: var(--map-water); }
 .map-svg .m-tram { stroke: var(--map-street); stroke-width: calc(3.4px * var(--mz, 1)); stroke-linecap: butt; stroke-dasharray: calc(7px * var(--mz, 1)) calc(4px * var(--mz, 1)); }
-.map-svg .m-place { fill: var(--map-label); font-family: var(--font); font-weight: 600; font-size: calc(12.5px * var(--mz, 1)); dominant-baseline: middle; }
+.map-svg .m-place { fill: var(--map-label); font-family: var(--font); font-weight: var(--fw-bold); font-size: calc(12.5px * var(--mz, 1)); dominant-baseline: middle; }
 .map-svg .m-north circle { fill: var(--bg); }   /* a patch of page colour under the arrow, over any road */
 .map-svg .m-north path { fill: var(--map-ink); }
-.map-svg .m-north text { fill: var(--map-ink); font-family: var(--font); font-weight: 700; font-size: 10px; letter-spacing: 0.12em; text-anchor: middle; }
+.map-svg .m-north text { fill: var(--map-ink); font-family: var(--font); font-weight: var(--fw-bold); font-size: 10px; text-anchor: middle; }
 
 .chip { display: inline-block; flex: none; width: 16px; height: 16px; border-radius: 4px; }
 .chip.chip-forest { background: radial-gradient(circle, var(--map-dot) 1.6px, transparent 2.2px) 1px 1px / 7px 7px; }
 .chip.chip-water { background: var(--map-water); }
 .chip.chip-tram { height: 4px; border-radius: 0; background: repeating-linear-gradient(90deg, var(--map-street) 0 6px, transparent 6px 9px); }
 .chip.chip-road { height: 4px; border-radius: 2px; background: var(--map-street); }
-.map-legend { display: flex; flex-wrap: wrap; gap: var(--tight) var(--base); margin: 0; padding: 0; list-style: none; font-size: var(--small); }
+.map-legend { display: flex; flex-wrap: wrap; gap: var(--tight) var(--base); margin: 0; padding: 0; list-style: none; font-size: var(--fs-s); }
 .map-legend li { display: inline-flex; align-items: center; gap: var(--tight); }
-.map-credit { text-transform: none; letter-spacing: 0; font-weight: 400; }
 
 /* ---------- markers: what is happening where (map.js) ----------
    One marker per landmark, coloured by the most important thing there: problem maple, meeting moss,
@@ -412,7 +422,7 @@ pre.template {
 .map-svg .m-spot-initiative .m-spot-dot { fill: var(--blue); }
 .map-svg .m-spot-news .m-spot-dot { fill: var(--pine); }
 .map-svg .m-spot-solved .m-spot-dot { fill: var(--grey); }
-.map-svg .m-spot-n { font-family: var(--font); font-size: 13px; font-weight: 800; text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
+.map-svg .m-spot-n { font-family: var(--font); font-size: 13px; font-weight: var(--fw-bold); text-anchor: middle; dominant-baseline: middle; pointer-events: none; }
 .map-svg .m-spot-problem .m-spot-n { fill: var(--on-maple); }
 .map-svg .m-spot-event .m-spot-n { fill: var(--on-moss); }
 .map-svg .m-spot-initiative .m-spot-n { fill: var(--on-blue); }
@@ -450,9 +460,14 @@ pre.template {
 .bt-box > .bt-coffee ~ .bt-map { color: var(--on-moss); }
 
 /* ---------- narrow screens and 200% zoom ---------- */
+/* a 360 px phone: two small tiles leave 121 px for «КАЖУТЬ…» (122.5 px in Rubik Black 22); 2 px less side padding
+   is enough, and the type keeps its one size */
+@media (max-width: 24rem) {
+  .bt { padding-left: 12px; padding-right: 12px; }
+  .bt-pic { width: calc(100% + 24px); margin: 0 -12px; }
+}
 @media (max-width: 22rem) {
   body { padding-left: var(--snug); padding-right: var(--snug); }
-  h1 { font-size: 1.875rem; }
   .tile-state, .tile-name, h1, h2, .micro, .brand { overflow-wrap: anywhere; }
   .tile { grid-template-columns: minmax(0, 1fr); }
   .tile-state { text-align: left; white-space: normal; }
@@ -461,8 +476,6 @@ pre.template {
   .btn { justify-self: stretch; padding: var(--tight) var(--snug); }
   .item:not(.lead-news) summary { padding-right: var(--base); }
   .bt { min-height: 9rem; padding: 12px; }
-  .bt-big { font-size: 1.25rem; }
-  .bt-wide .bt-big { font-size: 1.75rem; }
   .bt-pic { width: calc(100% + 24px); margin: 0 -12px; }
   .paper { padding-left: var(--snug); padding-right: var(--snug); }
   .map-box { margin: 0 calc(-1 * var(--snug)); }
