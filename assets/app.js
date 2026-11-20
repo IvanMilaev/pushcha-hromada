@@ -131,7 +131,7 @@
   /* Plain text for Viber/Telegram — see specs/001-mvp-prototype/contracts/share-text.md */
   function shareText(p, now, url) {
     var lines = [];
-    if (p.sample) lines.push('ТЕСТОВІ ДАНІ (приклад, не справжній стан)');
+    if (p.sample) lines.push('ТЕСТОВІ ДАНІ (не справжній стан)');
     lines.push('Пуща-Водиця зараз, ' + fmtClock(now));
     p.items.forEach(function (it) { lines.push(itemLine(it, now)); });
     if (p.event) {
@@ -455,7 +455,7 @@
     return lines.map(icsFold).join('\r\n') + '\r\n';
   }
 
-  var SAMPLE_LINE = 'ТЕСТОВІ ДАНІ (приклад)';
+  var SAMPLE_LINE = 'ТЕСТОВІ ДАНІ';   // a shared text leaves the site and its banner, so it keeps its own mark
 
   function eventShareText(ev, now, url, orgName, sample) {
     var occ = ev.occ || { start: ev.start, end: ev.end };

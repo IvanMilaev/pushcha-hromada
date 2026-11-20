@@ -8,7 +8,7 @@
   var PH = window.PH;
   var GEN = { water: 'води', power: 'світла', heating: 'тепла', connectivity: 'зв’язку' };
   var NOM = { water: 'вода', power: 'світло', heating: 'тепло', connectivity: 'зв’язок' };
-  var SAMPLE = 'ТЕСТОВІ ДАНІ (приклад)';      // the same first line as every shared text in app.js
+  var SAMPLE = 'ТЕСТОВІ ДАНІ';      // the same first line as every shared text in app.js
 
   function $(id) { return document.getElementById(id); }
   function pad(n) { return (n < 10 ? '0' : '') + n; }
@@ -95,19 +95,15 @@
     });
     var newest = Math.max.apply(null, p.items.map(function (it) { return it.ms || 0; }));
     var age = newest ? 'оновлено ' + PH.ageText(newest, now) : '';
-    var parts = [];
-    if (yes.length) parts.push(cap(list(yes.map(function (k) { return NOM[k]; }))) + ' є.');
-    if (stale.length) parts.push(cap(list(stale.map(function (k) { return NOM[k]; }))) + ' — не підтверджено.');
-    if (unknown.length) parts.push(cap(list(unknown.map(function (k) { return NOM[k]; }))) + ' — невідомо.');
     if (no.length) {
       var water = no.indexOf('water') >= 0 && p.points.length;
+      // the one big word on the board: a missing service. The rest of the status is one tap away (status.html).
       return tile({ kind: 'alarm', wide: true, href: water ? 'status.html#h-water' : 'status.html',
         label: 'Стан' + (age ? ' · ' + age : ''), big: 'Немає ' + list(no.map(function (k) { return GEN[k]; })),
-        text: parts.join(' '), meta: water ? 'Де взяти воду →' : 'Детальніше про стан →' });
+        meta: water ? 'Де взяти воду →' : 'Детальніше про стан →' });
     }
     return tile({ kind: 'status', href: 'status.html', label: 'Стан' + (age ? ' · ' + age : ''),
-      title: stale.length || unknown.length ? 'Усе, що відомо, працює.' : 'Усе працює.',
-      text: parts.filter(function (s) { return !/ є\.$/.test(s); }).join(' '), meta: 'Вода, світло, тепло, зв’язок →' });
+      title: stale.length || unknown.length ? 'Усе, що відомо, працює.' : 'Усе працює.', meta: 'Вода, світло, тепло, зв’язок →' });
   }
 
   function newsTile(n, wide) {
@@ -123,26 +119,26 @@
   }
   function initiativeTile(n, wide) {
     return tile({ kind: 'initiative', wide: wide, href: 'news.html#' + n.id, label: 'Ініціатива', title: n.title,
-      text: wide ? n.text : '', meta: 'Як долучитися: ' + n.join, mark: wide, mapId: n.spot ? n.id : '' });
+      meta: 'Як долучитися: ' + n.join, mark: wide, mapId: n.spot ? n.id : '' });
   }
   function gossipTile(g) {
     // the rule from CLAUDE.md: unverified is labelled as such, on the tile itself
+    var t = g.text.replace(/^кажуть,?\s*(що\s*)?/i, '');
     return tile({ kind: 'gossip', href: 'news.html#' + g.id,
       label: 'Плітка', state: g.state === 'кажуть' ? 'не перевірено' : g.state,
-      stateCls: g.state === 'кажуть' ? 'bt-st-stale' : '',
-      big: 'Кажуть…', text: g.text.replace(/^кажуть,?\s*(що\s*)?/i, '') });
+      stateCls: g.state === 'кажуть' ? 'bt-st-stale' : '', title: cap(t) });
   }
   function coffeeTile(E, now) {
     var c = E.coffee;
     if (!c || !c.occ) return null;
     return tile({ kind: 'coffee', href: 'events.html#' + c.id, label: 'Кава з сусідами',
-      big: hhmm(c.occ.start), title: cap(PH.dayLabel(c.occ.start, now).split(',')[0]),
+      title: cap(PH.dayLabel(c.occ.start, now).split(',')[0]) + ', ' + hhmm(c.occ.start),
       meta: c.isPrivate ? 'адреса — учасникам' : c.place, mark: true, mapId: c.spot ? c.id : '' });
   }
   /* The owner's own photos of Pushcha (owner, 2026-11-20): two wide tiles, two different photos picked at random on
-     every visit. Not a link: a photo is just a look at the place. The figcaption describes it, so the picture itself
-     has an empty alt (no double reading). Skipped in the low-data mode; a photo that cannot load (offline, not yet
-     cached) takes its tile away with it. */
+     every visit. Not a link: a photo is just a look at the place. On screen only «Фото Пущі · month» (owner: no
+     descriptions); the description is the picture's alt, for screen readers. Skipped in the low-data mode; a photo
+     that cannot load (offline, not yet cached) takes its tile away with it. */
   function pickPhotos(list, n) {
     var a = list.slice();
     for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
@@ -151,19 +147,18 @@
   function photoTile(ph, lazy) {
     var f = node('figure', 'bt bt-wide bt-photo');
     var img = node('img', 'bt-photo-img');
-    img.src = ph.file; img.alt = ''; img.width = ph.w; img.height = ph.h; img.decoding = 'async';
+    img.src = ph.file; img.alt = ph.alt; img.width = ph.w; img.height = ph.h; img.decoding = 'async';
     if (lazy) img.loading = 'lazy';
     img.onerror = function () { if (f.parentNode) f.parentNode.removeChild(f); };
     f.appendChild(img);
     var caption = node('figcaption', 'bt-photo-cap');
     caption.appendChild(node('span', 'bt-kind', 'Фото Пущі' + (ph.month ? ' · ' + ph.month : '')));
-    caption.appendChild(node('span', 'bt-text', ph.alt));
     f.appendChild(caption);
     return f;
   }
   function addTile(wide) {
-    var a = tile({ kind: 'add', wide: wide, href: 'add.html', label: 'Розкажіть сусідам', big: '+',
-      title: 'Новина, проблема, ініціатива чи плітка' });
+    var a = tile({ kind: 'add', wide: wide, href: 'add.html', label: 'Розкажіть сусідам',
+      title: '+ Новина, проблема, ініціатива чи плітка' });
     return a;
   }
 

@@ -296,7 +296,7 @@ pre.template {
 .lead-news summary::after { top: auto; bottom: 0; transform: none; }
 .lead-pic { aspect-ratio: 16 / 10; margin-bottom: var(--tight); }
 .pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--fs-s); color: var(--muted); }
-.lead-title { font-size: var(--fs-l); font-weight: var(--fw-bold); line-height: var(--lh-head); color: var(--text); }
+.lead-title { font-size: var(--fs-m); font-weight: var(--fw-bold); line-height: var(--lh-head); color: var(--text); }   /* one title size in every list and tile */
 .lead-ex { color: var(--muted); padding-right: var(--wide); }
 .lead-news details[open] .lead-ex { display: none; }
 
@@ -313,16 +313,14 @@ pre.template {
   min-height: 10.5rem; padding: var(--snug); border-radius: var(--r-s); text-decoration: none; overflow-wrap: anywhere;
 }
 .bt-wide { grid-column: 1 / -1; min-height: 0; }
+/* Two text styles in a tile, no more (owner, 2026-11-20: «рябить»): a quiet 15 px line (label, photo note, meta)
+   and a 17 px bold title. A state word is told by colour alone. The one exception is the alarm's big word. */
 .bt-kind { font-size: var(--fs-s); line-height: var(--lh-head); }
-.bt-kind .bt-st-no, .bt-kind .bt-st-stale { font-weight: var(--fw-bold); }
-/* The big word is one word and cannot wrap: on a phone 320 px wide a small tile is too narrow for «КАЖУТЬ…» at 22 px,
-   so there (and only there) it shrinks to fit its tile, like the title. Never larger than its step. */
-.bt { container-type: inline-size; }
-.bt-big { font-family: var(--display); font-weight: var(--fw-black); font-size: min(var(--fs-l), 17.6cqi); line-height: var(--lh-caps); text-transform: uppercase; overflow-wrap: normal; }
-.bt-wide .bt-big, .bt-add .bt-big { font-size: var(--fs-xl); }
+.bt-big { font-family: var(--display); font-weight: var(--fw-black); font-size: var(--fs-xl); line-height: var(--lh-caps); text-transform: uppercase; }   /* the alarm only: «НЕМАЄ ВОДИ» */
 .bt-title { font-weight: var(--fw-bold); line-height: var(--lh-head); }
-.bt-wide .bt-title { font-size: var(--fs-l); }
-.bt-meta { margin-top: auto; font-size: var(--fs-s); font-weight: var(--fw-bold); line-height: var(--lh-head); }
+.bt-meta { margin-top: auto; font-size: var(--fs-s); line-height: var(--lh-head); color: var(--tile-muted); }
+.bt-wide .bt-meta, .bt-alarm .bt-meta, .bt-coffee .bt-meta { color: inherit; }
+.bt-add .bt-meta { color: var(--muted); }
 .bt-pic { display: block; width: calc(100% + 2 * var(--snug)); max-width: none; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
   margin: 0 calc(-1 * var(--snug)); background: var(--surface); }
 .bt-pic-note { margin-top: calc(-1 * var(--hair)); font-size: var(--fs-s); line-height: var(--lh-head); }   /* "Фото: згенероване зображення…" */
@@ -488,12 +486,6 @@ pre.template {
 .bt-box > .bt-coffee ~ .bt-map { color: var(--on-moss); }
 
 /* ---------- narrow screens and 200% zoom ---------- */
-/* a 360 px phone: two small tiles leave 121 px for «КАЖУТЬ…» (122.5 px in Rubik Black 22); 2 px less side padding
-   is enough, and the type keeps its one size */
-@media (max-width: 24rem) {
-  .bt { padding-left: 12px; padding-right: 12px; }
-  .bt-pic { width: calc(100% + 24px); margin: 0 -12px; }
-}
 @media (max-width: 22rem) {
   body { padding-left: var(--snug); padding-right: var(--snug); }
   .tile-state, .tile-name, h1, h2, .micro, .brand { overflow-wrap: anywhere; }
