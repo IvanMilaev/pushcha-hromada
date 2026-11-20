@@ -3,7 +3,7 @@
    Bump CACHE_VERSION whenever a page, style.css or app.js changes. */
 'use strict';
 
-var CACHE_VERSION = 'ph-v48';
+var CACHE_VERSION = 'ph-v49';
 var PRECACHE = [
   './',
   'index.html',
@@ -31,7 +31,8 @@ var PRECACHE = [
   'data/events.json',
   'data/posts.json',
   'data/orgs.json',
-  'data/places.json'
+  'data/places.json',
+  'data/photos.json'      // the list only; each photo is kept after its first view (shellRequest, /img/)
 ];
 var NETWORK_TIMEOUT = 4000;
 

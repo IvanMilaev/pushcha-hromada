@@ -139,6 +139,28 @@
       big: hhmm(c.occ.start), title: cap(PH.dayLabel(c.occ.start, now).split(',')[0]),
       meta: c.isPrivate ? 'адреса — учасникам' : c.place, mark: true, mapId: c.spot ? c.id : '' });
   }
+  /* The owner's own photos of Pushcha (owner, 2026-11-20): two wide tiles, two different photos picked at random on
+     every visit. Not a link: a photo is just a look at the place. The figcaption describes it, so the picture itself
+     has an empty alt (no double reading). Skipped in the low-data mode; a photo that cannot load (offline, not yet
+     cached) takes its tile away with it. */
+  function pickPhotos(list, n) {
+    var a = list.slice();
+    for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; }
+    return a.slice(0, n);
+  }
+  function photoTile(ph, lazy) {
+    var f = node('figure', 'bt bt-wide bt-photo');
+    var img = node('img', 'bt-photo-img');
+    img.src = ph.file; img.alt = ''; img.width = ph.w; img.height = ph.h; img.decoding = 'async';
+    if (lazy) img.loading = 'lazy';
+    img.onerror = function () { if (f.parentNode) f.parentNode.removeChild(f); };
+    f.appendChild(img);
+    var caption = node('figcaption', 'bt-photo-cap');
+    caption.appendChild(node('span', 'bt-kind', 'Фото Пущі' + (ph.month ? ' · ' + ph.month : '')));
+    caption.appendChild(node('span', 'bt-text', ph.alt));
+    f.appendChild(caption);
+    return f;
+  }
   function addTile(wide) {
     var a = tile({ kind: 'add', wide: wide, href: 'add.html', label: 'Розкажіть сусідам', big: '+',
       title: 'Новина, проблема, ініціатива чи плітка' });
@@ -146,8 +168,9 @@
   }
 
   /* ---------- the board: a fixed rhythm of wide and small tiles; the grid fills gaps (dense) ---------- */
-  function board(p, E, P, now) {
+  function board(p, E, P, now, photos) {
     var box = $('bento');
+    var pics = photos && photos.photos && !PH.liteMode() ? pickPhotos(photos.photos.filter(function (x) { return x.file && x.alt; }), 2) : [];
     box.textContent = '';
     var tiles = [];
     var alarm = p && p.items.some(function (it) { return !it.stale && it.state === 'немає'; });
@@ -164,11 +187,13 @@
     if (P.initiatives[0]) tiles.push(initiativeTile(P.initiatives[0], true));
     if (P.news[1]) tiles.push(newsTile(P.news[1], false));
     if (openProblems[1]) tiles.push(problemTile(openProblems[1], false));
+    if (pics[0]) tiles.push(photoTile(pics[0], false));
     // four news (owner, 2026-11-19: room for the ОСН, ГО and district reports among the openings)
     if (P.news[2]) tiles.push(newsTile(P.news[2], false));
     if (P.news[3]) tiles.push(newsTile(P.news[3], false));
     if (P.initiatives[1]) tiles.push(initiativeTile(P.initiatives[1], false));
     if (gossip[1]) tiles.push(gossipTile(gossip[1]));
+    if (pics[1]) tiles.push(photoTile(pics[1], true));
     if (p && !alarm) tiles.push(statusTile(p, now));
     var coffee = E && coffeeTile(E, now);
     if (coffee) tiles.push(coffee);
@@ -206,11 +231,11 @@
   // «Пуща-Водиця» is fitted to the column by app.js (fitTitles), like every page title.
   function boot() {
     var now = Date.now();
-    Promise.all([getJSON('data/status.json'), getJSON('data/events.json'), getJSON('data/posts.json')]).then(function (r) {
+    Promise.all([getJSON('data/status.json'), getJSON('data/events.json'), getJSON('data/posts.json'), getJSON('data/photos.json')]).then(function (r) {
       var p = r[0] ? PH.prepStatus(r[0], now) : null;
       var E = r[1] ? PH.prepEvents(r[1], now) : null;
       var P = PH.prepPosts(r[2], now);
-      var shown = board(p, E, P, now);
+      var shown = board(p, E, P, now, r[3]);
       share(shown, p, P.sample, now);
     });
   }
