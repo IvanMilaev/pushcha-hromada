@@ -3,7 +3,7 @@
    Bump CACHE_VERSION whenever a page, style.css or app.js changes. */
 'use strict';
 
-var CACHE_VERSION = 'ph-v51';
+var CACHE_VERSION = 'ph-v52';
 var PRECACHE = [
   './',
   'index.html',
